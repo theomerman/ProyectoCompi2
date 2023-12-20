@@ -1,0 +1,6 @@
+.editor-main{
+    width: calc(100vw - 420px);
+    background-color: red;
+    /* height: calc((100vw - 220px) / 2); */
+    
+}
