@@ -1,4 +1,34 @@
-.main{
-    display: flex;
-    flex-wrap: wrap;
+div {
+    display: grid;
+    grid-template-columns: 300px 1fr 1fr;
+    grid-template-rows: 80px 1fr 1fr;
+    grid-template-areas: 
+        "navbar navbar navbar"
+        "sidebar editor editor"
+        "sidebar output output";
+    ;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+div app-navbar {
+    background-color: lightgreen;
+    grid-area: navbar;
+    /* height: 100px; */
+}
+
+div app-side-bar {
+    background-color: lightblue;
+    grid-area: sidebar;
+}
+
+div app-editor {
+    background-color: lightpink;
+    grid-area: editor;
+    padding: 10px;
+}
+
+div app-output {
+    background-color: lightyellow;
+    grid-area: output;
 }
