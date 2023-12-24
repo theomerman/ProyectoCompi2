@@ -1,0 +1,246 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ADD
+    ALTER
+    AND
+    AT
+    COLUMN
+    COMMA
+    COMPARE
+    DATE
+    DECIMAL
+    DECIMALES
+    DIFFERENT
+    DIVIDE
+    EQUAL
+    FROM
+    GREATER
+    GREATER_EQUAL
+    INSERT
+    INT
+    INTO
+    KEY
+    LESS
+    LESS_EQUAL
+    LPAREN
+    MINUS
+    NOT
+    NOT_EQUAL
+    NOT_SYMBOL
+    NULL
+    NUMBER
+    NVARCHAR
+    OR
+    PERIOD
+    PLUS
+    PRIMARY
+    REFERENCE
+    RPAREN
+    SELECT
+    STRING
+    TABLE
+    TIMES
+    VALUES
+    WHERE
+
+Grammar
+
+Rule 0     S' -> init
+Rule 1     init -> statement init
+Rule 2     init -> statement
+Rule 3     statement -> create_database
+Rule 4     statement -> use_database
+Rule 5     create_database -> CREATE DATA BASE ID SEMICOLOM
+Rule 6     use_database -> USE ID SEMICOLOM
+
+Terminals, with rules where they appear
+
+ADD                  : 
+ALTER                : 
+AND                  : 
+AT                   : 
+BASE                 : 5
+COLUMN               : 
+COMMA                : 
+COMPARE              : 
+CREATE               : 5
+DATA                 : 5
+DATE                 : 
+DECIMAL              : 
+DECIMALES            : 
+DIFFERENT            : 
+DIVIDE               : 
+EQUAL                : 
+FROM                 : 
+GREATER              : 
+GREATER_EQUAL        : 
+ID                   : 5 6
+INSERT               : 
+INT                  : 
+INTO                 : 
+KEY                  : 
+LESS                 : 
+LESS_EQUAL           : 
+LPAREN               : 
+MINUS                : 
+NOT                  : 
+NOT_EQUAL            : 
+NOT_SYMBOL           : 
+NULL                 : 
+NUMBER               : 
+NVARCHAR             : 
+OR                   : 
+PERIOD               : 
+PLUS                 : 
+PRIMARY              : 
+REFERENCE            : 
+RPAREN               : 
+SELECT               : 
+SEMICOLOM            : 5 6
+STRING               : 
+TABLE                : 
+TIMES                : 
+USE                  : 6
+VALUES               : 
+WHERE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+create_database      : 3
+init                 : 1 0
+statement            : 1 2
+use_database         : 4
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . init
+    (1) init -> . statement init
+    (2) init -> . statement
+    (3) statement -> . create_database
+    (4) statement -> . use_database
+    (5) create_database -> . CREATE DATA BASE ID SEMICOLOM
+    (6) use_database -> . USE ID SEMICOLOM
+
+    CREATE          shift and go to state 5
+    USE             shift and go to state 6
+
+    init                           shift and go to state 1
+    statement                      shift and go to state 2
+    create_database                shift and go to state 3
+    use_database                   shift and go to state 4
+
+state 1
+
+    (0) S' -> init .
+
+
+
+state 2
+
+    (1) init -> statement . init
+    (2) init -> statement .
+    (1) init -> . statement init
+    (2) init -> . statement
+    (3) statement -> . create_database
+    (4) statement -> . use_database
+    (5) create_database -> . CREATE DATA BASE ID SEMICOLOM
+    (6) use_database -> . USE ID SEMICOLOM
+
+    $end            reduce using rule 2 (init -> statement .)
+    CREATE          shift and go to state 5
+    USE             shift and go to state 6
+
+    statement                      shift and go to state 2
+    init                           shift and go to state 7
+    create_database                shift and go to state 3
+    use_database                   shift and go to state 4
+
+state 3
+
+    (3) statement -> create_database .
+
+    CREATE          reduce using rule 3 (statement -> create_database .)
+    USE             reduce using rule 3 (statement -> create_database .)
+    $end            reduce using rule 3 (statement -> create_database .)
+
+
+state 4
+
+    (4) statement -> use_database .
+
+    CREATE          reduce using rule 4 (statement -> use_database .)
+    USE             reduce using rule 4 (statement -> use_database .)
+    $end            reduce using rule 4 (statement -> use_database .)
+
+
+state 5
+
+    (5) create_database -> CREATE . DATA BASE ID SEMICOLOM
+
+    DATA            shift and go to state 8
+
+
+state 6
+
+    (6) use_database -> USE . ID SEMICOLOM
+
+    ID              shift and go to state 9
+
+
+state 7
+
+    (1) init -> statement init .
+
+    $end            reduce using rule 1 (init -> statement init .)
+
+
+state 8
+
+    (5) create_database -> CREATE DATA . BASE ID SEMICOLOM
+
+    BASE            shift and go to state 10
+
+
+state 9
+
+    (6) use_database -> USE ID . SEMICOLOM
+
+    SEMICOLOM       shift and go to state 11
+
+
+state 10
+
+    (5) create_database -> CREATE DATA BASE . ID SEMICOLOM
+
+    ID              shift and go to state 12
+
+
+state 11
+
+    (6) use_database -> USE ID SEMICOLOM .
+
+    CREATE          reduce using rule 6 (use_database -> USE ID SEMICOLOM .)
+    USE             reduce using rule 6 (use_database -> USE ID SEMICOLOM .)
+    $end            reduce using rule 6 (use_database -> USE ID SEMICOLOM .)
+
+
+state 12
+
+    (5) create_database -> CREATE DATA BASE ID . SEMICOLOM
+
+    SEMICOLOM       shift and go to state 13
+
+
+state 13
+
+    (5) create_database -> CREATE DATA BASE ID SEMICOLOM .
+
+    CREATE          reduce using rule 5 (create_database -> CREATE DATA BASE ID SEMICOLOM .)
+    USE             reduce using rule 5 (create_database -> CREATE DATA BASE ID SEMICOLOM .)
+    $end            reduce using rule 5 (create_database -> CREATE DATA BASE ID SEMICOLOM .)
+
