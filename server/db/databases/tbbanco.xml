@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<tbbanco>
+                        
+    <tbestado>
+                                                
+        <idestado type="int" primary_key="True" nullable="False" reference="None"/>
+                                                
+        <estado type="50" primary_key="False" nullable="False" reference="None"/>
+                                    
+    </tbestado>
+                
+    <tbidentificaciontipo>
+                                
+        <ididentificaciontipo type="int" primary_key="True" nullable="False" reference="None"/>
+                                
+        <identificaciontipo type="15" primary_key="False" nullable="False" reference="None"/>
+                        
+    </tbidentificaciontipo>
+        
+    <tbcliente>
+                
+        <codigocliente type="15" primary_key="True" nullable="False" reference="None"/>
+                
+        <primer_nombre type="50" primary_key="False" nullable="False" reference="None"/>
+                
+        <segundo_nombre type="50" primary_key="False" nullable="True" reference="None"/>
+                
+        <primer_apellido type="50" primary_key="False" nullable="False" reference="None"/>
+                
+        <segundo_apellido type="50" primary_key="False" nullable="True" reference="None"/>
+                
+        <fecha_nacimiento type="date" primary_key="False" nullable="False" reference="None"/>
+                
+        <genero type="1" primary_key="False" nullable="True" reference="None"/>
+                
+        <idestado type="int" primary_key="False" nullable="False" reference="tbestado.idestado"/>
+            
+    </tbcliente>
+    <tbidentificacion>
+        <ididentificacion type="int" primary_key="True" nullable="False" reference="None"/>
+        <codigocliente type="15" primary_key="True" nullable="False" reference="tbcliente.codigocliente"/>
+        <identificacion type="20" primary_key="False" nullable="False" reference="None"/>
+        <ididentificaciontipo type="int" primary_key="False" nullable="True" reference="tbidentificaciontipo.ididentificaciontipo"/>
+    </tbidentificacion>
+</tbbanco>

@@ -1,11 +1,11 @@
 
 import ply.yacc as yacc
-from db.functions import create_database
+from controllers.functions import create_database
 # Get the token map from the lexer.  This is required.
 from controllers.compiler.lexer import tokens 
 
-from db.functions import create_database,use_database
-
+from controllers.functions import create_database,use_database, create_table
+from controllers.objects.column import Column
 
 
 
@@ -46,15 +46,39 @@ def p_create_table(p):
     '''
     create_table : CREATE TABLE ID LPAREN columns RPAREN SEMICOLOM
     '''
-    print("table created")
+    create_table.create_table(p[3], p[5])
+
+
 def p_columns(p):
     '''
     columns : columns COMMA column
             | column
-
-    column : ID type attributes
-
     '''
+    if len(p) == 4:
+        p[0] = p[1] + [p[3]]
+    elif len(p) == 2:
+        p[0] = [p[1]]
+    
+
+def p_column(p):
+    '''
+    column : ID type attributes
+    '''
+    tmp = Column(p[1], p[2])
+    if p[3] == None:
+        tmp.nullable = True
+        tmp.primary_key = False
+        tmp.reference = None
+    else:
+    # iterate dictionary
+        for key, value in p[3].items():
+            if key == 'nullable':
+                tmp.nullable = value
+            elif key == 'primary':
+                tmp.primary_key = value
+            elif key == 'reference':
+                tmp.reference = value
+    p[0] = tmp
 
 def p_type(p):
     '''
@@ -63,30 +87,58 @@ def p_type(p):
          | NVARCHAR LPAREN NUMBER RPAREN
          | DECIMAL
     '''
+    if p[1] == 'int':
+        p[0] = 'int'
+    elif p[1] == 'date':
+        p[0] = 'date'
+    elif p[1] == 'nvarchar':
+        p[0] = int(p[3])
+    elif p[1] == 'decimal':
+        p[0] = 'decimal'
 
 def p_attributes(p):
     '''
     attributes : attributes attribute
                | attribute
+               | empty
     '''
+    if len(p) == 3:
+        if p[2] == 'not':
+            p[1]["nullable"] = False
+            p[0] = p[1]
+        elif p[2] == 'primary':
+            p[1]["primary"] = True
+            p[0] = p[1]
+        elif "." in p[2]:
+            p[1]["reference"] = p[2]
+            p[0] = p[1]
+    elif len(p) == 2:
+        if p[1] != None:
+            if p[1] == 'not':
+                p[0] = {'nullable': False}
+            elif p[1] == 'primary':
+                p[0] = {'primary': True}
+            elif "." in p[1]:
+                p[0] = {'reference': p[1]}
 
 def p_attribute(p):
     '''
     attribute : PRIMARY KEY
               | REFERENCE ID LPAREN ID RPAREN
-              | nullable
+              | NOT NULL
     '''
-
-def p_nullable(p):
-    '''
-    nullable : NOT NULL
-             | empty
-    '''
-
+    if p[1] == 'primary':
+        p[0] = 'primary'
+    elif p[1] == 'reference':
+        p[0] = p[2] + "." + p[4]
+    elif p[1] == 'not':
+        p[0] = "not"
+    
 
 # empty
 def p_empty(p):
    'empty :' 
+   pass
 
 # Error rule for syntax errors
 def p_error(p):

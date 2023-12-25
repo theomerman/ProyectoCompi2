@@ -92,12 +92,13 @@ tokens = tokens + list(reserved.values())
 
 def t_STRING(t):
     r"'([^\\']+|\\'|\\\\)*'"
-    t.value = str(t.value)
+    t.value = str(t.value).lower()
     return t
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value.lower(), 'ID')
+    t.value = str(t.value).lower()
     return t
 
 def t_DECIMALES(t):

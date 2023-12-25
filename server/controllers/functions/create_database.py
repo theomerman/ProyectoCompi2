@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
-from db.validations.is_database import is_database
+from controllers.validations.is_database import is_database
 
 def create_database(name):
     if is_database(name):
