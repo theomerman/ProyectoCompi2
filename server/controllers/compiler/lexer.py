@@ -10,7 +10,7 @@ tokens = [
     'DIVIDE',
     'LPAREN',
     'RPAREN',
-    'SEMICOLOM',   
+    'SEMICOLON',   
     'COMMA',
     'PERIOD',
     'COMPARE',
@@ -67,7 +67,7 @@ t_DIVIDE = r'/'
 t_EQUAL = r'='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
-t_SEMICOLOM = r';'
+t_SEMICOLON = r';'
 t_COMMA = r','
 t_PERIOD = r'\.'
 t_AT = r'@'

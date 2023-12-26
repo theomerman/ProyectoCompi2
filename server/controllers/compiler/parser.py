@@ -20,14 +20,13 @@ def p_statement(p):
     '''statement : create_database
                 | use_database
                 | create_table
-                
+                | insert_into
                 '''
     p[0] = p[1]
 
-
 # create_database
 def p_create_database(p):
-    '''create_database : CREATE DATA BASE ID SEMICOLOM'''
+    '''create_database : CREATE DATA BASE ID SEMICOLON'''
     p[0] = p[4]
 
     if create_database.create_database(p[4]):
@@ -36,7 +35,7 @@ def p_create_database(p):
 
 # use_database
 def p_use_database(p):
-    '''use_database : USE ID SEMICOLOM'''
+    '''use_database : USE ID SEMICOLON'''
     p[0] = p[2]
     use_database.use_database(p[2]) 
 
@@ -44,7 +43,7 @@ def p_use_database(p):
 # create_table 
 def p_create_table(p):
     '''
-    create_table : CREATE TABLE ID LPAREN columns RPAREN SEMICOLOM
+    create_table : CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
     '''
     create_table.create_table(p[3], p[5])
 
@@ -134,6 +133,39 @@ def p_attribute(p):
     elif p[1] == 'not':
         p[0] = "not"
     
+def p_insert_into(p):
+    '''
+    insert_into : INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    '''
+    print("*********",p[3],len(p[5]),"-",len(p[9]),"*********")
+    # print(p[5])
+    # print(p[9])
+    
+def p_ids(p):
+    '''
+    ids : ids COMMA ID
+        | ID
+    '''
+    if len(p) == 4:
+        p[0] = p[1] + [p[3]]
+    elif len(p) == 2:
+        p[0] = [p[1]]
+def p_primitives(p):
+    '''
+    primitives  : primitives COMMA primitive
+                | primitive
+    '''
+    if len(p) == 4:
+        p[0] = p[1] + [p[3]]
+    elif len(p) == 2:
+        p[0] = [p[1]]
+def p_primitive(p):
+    '''
+    primitive   : NUMBER
+                | DECIMALES
+                | STRING
+    '''
+    p[0] = p[1]
 
 # empty
 def p_empty(p):

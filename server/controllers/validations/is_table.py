@@ -11,6 +11,5 @@ def is_table(name: str) -> bool:
     database = get_database()
 
     for table in database:
-        print(table.tag)
         if table.tag == name:
             return True

@@ -14,21 +14,24 @@ def create_table(_table: str, columns: list) -> bool:
     if database is None:
         return False
     table = ET.SubElement(database, _table)
-
+    tmp_columns = []
     for column in columns:
         if is_table(_table):
             print(f"Table {_table} already exists")
             return False 
         column.change_nullability()
+        if column.name in tmp_columns:
+            print(f"Column {column.name} already exists and was not added or modified to table {_table}")
+            return False
         ET.SubElement(table, column.name, attrib={"type": str(column.type), "primary_key": str(column.primary_key), "nullable": str(column.nullable), "reference": str(column.reference)})
-
+        tmp_columns.append(column.name)
     # Create a string representation with formatting
     xml_str = ET.tostring(database, encoding="unicode")
     xml_str = xml_str.replace("\n", "")
     xml_formatted = minidom.parseString(xml_str).toprettyxml(indent="    ")  # You can adjust the indentation level
     with open(f"db/databases/{get_current_database()}.xml", "w") as file:
         file.write(xml_formatted)
-        print(f"Table {_table} was selected successfully")
+        print(f"Table {_table} was created successfully")
         return True
 
 
