@@ -5,7 +5,8 @@ def insert(table_name, columns, values):
     if table is None:
         return None
     if len(columns) != len(values):
-        return None
+        print("Error: The number of columns and values does not match")
+        return False
     for i in range(len(columns)):
         column = columns[i]
         value = values[i]
