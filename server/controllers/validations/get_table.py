@@ -1,7 +1,7 @@
 from controllers.validations.get_database import get_database
 from xml.etree import ElementTree as ET
 
-def get_table(table_name) -> ET.Element:
+def get_table(table_name) -> tuple[ET.Element, str]:
     database, err = get_database()
     if err is not None:
         return None, err
