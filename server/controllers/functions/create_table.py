@@ -1,37 +1,32 @@
 from xml.etree import ElementTree as ET
-from controllers.validations.is_database import is_database
 from controllers.validations.get_current_database import get_current_database
 from controllers.validations.get_database import get_database
 from controllers.validations.is_table import is_table
+from controllers.validations.write_to_xml import write_to_xml
 from xml.dom import minidom
-import os
-import sys
 
 
-def create_table(_table: str, columns: list) -> bool:
+def create_table(_table: str, columns: list) -> tuple:
+    database, err = get_database()
+    if err is not None:
+        return None, err
+    is_table_value, err = is_table(_table)
+    if is_table_value:
+        return None, f"Table {_table} already exists" 
 
-    database = get_database()
-    if database is None:
-        return False
     table = ET.SubElement(database, _table)
     tmp_columns = []
+
     for column in columns:
-        if is_table(_table):
-            print(f"Table {_table} already exists")
-            return False 
         column.change_nullability()
         if column.name in tmp_columns:
-            print(f"Column {column.name} already exists and was not added or modified to table {_table}")
-            return False
+            return None, f"Column {column.name} already exists and was not added or modified to table {_table}"
         ET.SubElement(table, column.name, attrib={"type": str(column.type), "primary_key": str(column.primary_key), "nullable": str(column.nullable), "reference": str(column.reference)})
         tmp_columns.append(column.name)
-    # Create a string representation with formatting
-    xml_str = ET.tostring(database, encoding="unicode")
-    xml_str = xml_str.replace("\n", "")
-    xml_formatted = minidom.parseString(xml_str).toprettyxml(indent="    ")  # You can adjust the indentation level
-    with open(f"db/databases/{get_current_database()}.xml", "w") as file:
-        file.write(xml_formatted)
-        print(f"Table {_table} was created successfully")
-        return True
-
+    ET.SubElement(table, "data_rows")
+    writer, err = write_to_xml(database)
+    if err is not None:
+        return None, err
+    else:
+        return f"Table {_table} created successfully", None
 

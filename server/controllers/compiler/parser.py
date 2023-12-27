@@ -3,10 +3,8 @@ import ply.yacc as yacc
 from controllers.functions import create_database
 # Get the token map from the lexer.  This is required.
 from controllers.compiler.lexer import tokens 
-
-from controllers.functions import create_database,use_database, create_table
+from controllers.functions import create_database,use_database, create_table, insert
 from controllers.objects.column import Column
-
 
 
 # INIT
@@ -29,23 +27,35 @@ def p_create_database(p):
     '''create_database : CREATE DATA BASE ID SEMICOLON'''
     p[0] = p[4]
 
-    if create_database.create_database(p[4]):
-        print(f"Database {p[4]} was created successfully")
+    success , err = create_database.create_database(p[4])
+    if err:
+        print(err)
+    else:
+        print(success)
 
 
 # use_database
 def p_use_database(p):
     '''use_database : USE ID SEMICOLON'''
     p[0] = p[2]
-    use_database.use_database(p[2]) 
 
+    success , err = use_database.use_database(p[2])
+    if err:
+        print(err)
+    else:
+        print(success)
 
 # create_table 
 def p_create_table(p):
     '''
     create_table : CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
+
     '''
-    create_table.create_table(p[3], p[5])
+    success, err = create_table.create_table(p[3], p[5])
+    if err:
+        print(err)
+    else:
+        print(success)
 
 
 def p_columns(p):
@@ -137,7 +147,12 @@ def p_insert_into(p):
     '''
     insert_into : INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
     '''
-    print("*********",p[3],len(p[5]),"-",len(p[9]),"*********")
+    success, err, = insert.insert(p[3], p[5], p[9])
+    if err:
+        print(err)
+    else:
+        print(success)
+    # insert(p[3], p[5], p[9])
     # print(p[5])
     # print(p[9])
     

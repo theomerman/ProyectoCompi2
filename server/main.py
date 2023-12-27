@@ -60,5 +60,80 @@ INSERT INTO tbproducto (idproducto,producto,idestado) VALUES(2,'Credito Hipoteca
 INSERT INTO tbproducto (idproducto,producto,idestado) VALUES(3,'Tarjeta de Credito Oro',1);
 
 
+CREATE TABLE tbcredito (credito int PRIMARY KEY,nocuenta nvarchar(20) not null,
+idcliente int not null,fechaultimocorte date not null,idproducto int REFERENCE tbproducto (idproducto));
+
+CREATE TABLE tbobligaciontipo (idobligaciontipo int PRIMARY KEY,obligaciontipo nvarchar(30));
+
+INSERT INTO tbobligaciontipo (identificaciontipo,obligaciontipo) VALUES (1,'DIRECTO');
+INSERT INTO tbobligaciontipo (identificaciontipo,obligaciontipo) VALUES (2,'INDIRECTO');
+
+CREATE TABLE tbcreditoobligacion (codigocliente nvarchar(15) PRIMARY KEY, credito int PRIMARY KEY,
+idobligaciontipo int REFERENCE tbobligaciontipo (idobligaciontipo));
+
+
+INSERT INTO tbcredito (credito,nocuenta,idcliente,fechaultimocorte,idproducto) VALUES (1,'45-5454',1,'2023-11-30',1);
+INSERT INTO tbcredito (credito,nocuenta,idcliente,fechaultimocorte,idproducto) VALUES (2,'AF4545D',3,'2023-11-30',1);
+INSERT INTO tbcreditoobligacion (codigocliente,Credito,idobligaciontipo) VALUES ('GT-0001',1,1);
+INSERT INTO tbcreditoobligacion  (codigocliente,Credito,idobligaciontipo) VALUES('GT-0002',2,1);
+
+CREATE TABLE tbcreditoSaldo (credito int PRIMARY KEY, fechacorte date PRIMARY KEY, idmoneda int PRIMARY KEY,
+idcreditoestado int PRIMARY KEY, SaldoActual decimal, SaldoMora decimal,ValorCuota decimal,DiasMora int,
+alturamora int not null,limite decimal not null,idcalificacion int not null);
+
+
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (1,'2023-01-31',1,1,05,0,600,0,0,5000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (1,'2023-02-28',1,1,4400,0,600,0,0,5000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (1,'2023-03-31',1,1,3800,0,600,0,0,5000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (1,'2023-04-30',1,1,3200,0,600,0,0,5000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (1,'2023-05-31',1,1,2600,0,600,0,0,5000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (1,'2023-06-30',1,1,2600,600,600,30,1,5000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (1,'2023-07-31',1,1,3150,1200.25,600,60,2,5000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (1,'2023-08-30',1,1,3760,1700,600,90,3,5000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (1,'2023-09-30',1,2,4275,2300,600,120,4,5000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (1,'2023-10-31',1,2,4275,2900,600,120,4,5000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (1,'2023-11-30',1,2,4275,3500,700,120,4,5000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (1,'2023-12-31',1,2,3575,3575,600,120,4,5000,1);
+
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (2,'2023-01-31',1,1,15000,0,1250.25,0,0,15000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (2,'2023-02-28',1,1,14249.75,0,1250.25,0,0,15000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (2,'2023-03-31',1,1,12999.50,0,1250.25,0,0,15000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (2,'2023-04-30',1,1,11748.75,0,1250.75,0,0,15000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (2,'2023-05-31',1,1,10498,0,1250.75,0,0,15000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (2,'2023-06-30',1,1,9247.25,0,1250.75,0,0,15000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (2,'2023-07-31',1,1,7996.50,0,1250.75,0,0,15000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (2,'2023-08-30',1,1,6745.75,0,1250.75,0,0,15000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (2,'2023-09-30',1,2,5495,0,1250.75,0,0,15000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (2,'2023-10-31',1,2,4244.25,0,1250.75,0,0,15000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (2,'2023-11-30',1,2,2993.50,0,1250.75,0,0,15000,1);
+insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
+alturamora,limite,idcalificacion) values (2,'2023-12-31',1,2,1742.75,0,1250.75,0,0,15000,1);
+
 '''
+
+
+
 )
