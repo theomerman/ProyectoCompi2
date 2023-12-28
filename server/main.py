@@ -132,6 +132,7 @@ alturamora,limite,idcalificacion) values (2,'2023-11-30',1,2,2993.50,0,1250.75,0
 insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
 alturamora,limite,idcalificacion) values (2,'2023-12-31',1,2,1742.75,0,1250.75,0,0,15000,1);
 
+ALTER TABLE tbproducto ADD COLUMN tasa decimal;
 '''
 
 

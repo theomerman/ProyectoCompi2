@@ -2,6 +2,8 @@ import datetime
 from controllers.validations.get_table import get_table
 from controllers.validations.get_database import get_database
 from controllers.validations.write_to_xml import write_to_xml
+from controllers.validations.is_duplicated import is_duplicated
+from controllers.validations.is_duplicated import is_duplicated_pk
 from xml.etree import ElementTree as ET
 
 def insert(table_name, columns, values):
@@ -12,6 +14,10 @@ def insert(table_name, columns, values):
     if err is not None:
         return None, err
     item = new_item(dictionary)
+
+    if is_duplicated_pk(table, item):
+        return None, "Error: Primary key is duplicated"
+
     database, err = get_database()
     if err is not None:
         return None, err
@@ -53,10 +59,6 @@ def get_dictionary (table, columns, values):
                 return None, f"Error: Column {column.tag} cannot be null"
             else:
                 dictionary[column.tag] = "null"
-
-    success, err = validate_types(table, dictionary)
-    if err is not None:
-        return None, err
 
     return dictionary, None
 
