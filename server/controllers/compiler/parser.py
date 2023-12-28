@@ -19,6 +19,7 @@ def p_statement(p):
                 | use_database
                 | create_table
                 | insert_into
+                | alter_table
                 '''
     p[0] = p[1]
 
@@ -183,7 +184,12 @@ def p_primitive(p):
     p[0] = p[1]
 
 
-
+def p_alter_table(p):
+    '''
+    alter_table : ALTER TABLE ID ADD COLUMN ID type SEMICOLON
+                | ALTER TABLE ID DROP COLUMN ID SEMICOLON
+    '''
+    
 
 # empty
 def p_empty(p):

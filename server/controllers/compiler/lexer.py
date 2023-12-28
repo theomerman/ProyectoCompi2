@@ -52,6 +52,7 @@ reserved = {
     'string': 'STRING',
     'alter': 'ALTER',
     'add': 'ADD',
+    'drop': 'DROP',
     'column': 'COLUMN',
 
     'select': 'SELECT',

@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ADD ALTER AND AT BASE COLUMN COMMA COMPARE CREATE DATA DATE DECIMAL DECIMALES DIFFERENT DIVIDE EQUAL FROM GREATER GREATER_EQUAL ID INSERT INT INTO KEY LESS LESS_EQUAL LPAREN MINUS NOT NOT_EQUAL NOT_SYMBOL NULL NUMBER NVARCHAR OR PERIOD PLUS PRIMARY REFERENCE RPAREN SELECT SEMICOLON STRING TABLE TIMES USE VALUES WHEREinit : statement init\n            | statement\n            statement : create_database\n                | use_database\n                | create_table\n                | insert_into\n                create_database : CREATE DATA BASE ID SEMICOLONuse_database : USE ID SEMICOLON\n    create_table : CREATE TABLE ID LPAREN columns RPAREN SEMICOLON\n\n    \n    columns : columns COMMA column\n            | column\n    \n    column : ID type attributes\n    \n    type : INT\n         | DATE\n         | NVARCHAR LPAREN NUMBER RPAREN\n         | DECIMAL\n    \n    attributes : attributes attribute\n               | attribute\n               | empty\n    \n    attribute : PRIMARY KEY\n              | REFERENCE ID LPAREN ID RPAREN\n              | NOT NULL\n    \n    insert_into : INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON\n    \n    ids : ids COMMA ID\n        | ID\n    \n    primitives  : primitives COMMA primitive\n                | primitive\n    \n    primitive   : NUMBER\n                | DECIMALES\n                | STRING\n    empty :'
+_lr_signature = 'ADD ALTER AND AT BASE COLUMN COMMA COMPARE CREATE DATA DATE DECIMAL DECIMALES DIFFERENT DIVIDE DROP EQUAL FROM GREATER GREATER_EQUAL ID INSERT INT INTO KEY LESS LESS_EQUAL LPAREN MINUS NOT NOT_EQUAL NOT_SYMBOL NULL NUMBER NVARCHAR OR PERIOD PLUS PRIMARY REFERENCE RPAREN SELECT SEMICOLON STRING TABLE TIMES USE VALUES WHEREinit : statement init\n            | statement\n            statement : create_database\n                | use_database\n                | create_table\n                | insert_into\n                | alter_table\n                create_database : CREATE DATA BASE ID SEMICOLONuse_database : USE ID SEMICOLON\n    create_table : CREATE TABLE ID LPAREN columns RPAREN SEMICOLON\n\n    \n    columns : columns COMMA column\n            | column\n    \n    column : ID type attributes\n    \n    type : INT\n         | DATE\n         | NVARCHAR LPAREN NUMBER RPAREN\n         | DECIMAL\n    \n    attributes : attributes attribute\n               | attribute\n               | empty\n    \n    attribute : PRIMARY KEY\n              | REFERENCE ID LPAREN ID RPAREN\n              | NOT NULL\n    \n    insert_into : INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON\n    \n    ids : ids COMMA ID\n        | ID\n    \n    primitives  : primitives COMMA primitive\n                | primitive\n    \n    primitive   : NUMBER\n                | DECIMALES\n                | STRING\n    \n    alter_table : ALTER TABLE ID ADD COLUMN ID type SEMICOLON\n                | ALTER TABLE ID DROP COLUMN ID SEMICOLON\n    empty :'
     
-_lr_action_items = {'CREATE':([0,2,3,4,5,6,17,22,44,65,],[7,7,-3,-4,-5,-6,-8,-7,-9,-23,]),'USE':([0,2,3,4,5,6,17,22,44,65,],[8,8,-3,-4,-5,-6,-8,-7,-9,-23,]),'INSERT':([0,2,3,4,5,6,17,22,44,65,],[9,9,-3,-4,-5,-6,-8,-7,-9,-23,]),'$end':([1,2,3,4,5,6,10,17,22,44,65,],[0,-2,-3,-4,-5,-6,-1,-8,-7,-9,-23,]),'DATA':([7,],[11,]),'TABLE':([7,],[12,]),'ID':([8,12,14,15,20,21,34,36,41,54,],[13,16,18,19,23,26,23,47,50,61,]),'INTO':([9,],[14,]),'BASE':([11,],[15,]),'SEMICOLON':([13,19,33,62,],[17,22,44,65,]),'LPAREN':([16,18,31,46,50,],[20,21,43,53,54,]),'INT':([23,],[29,]),'DATE':([23,],[30,]),'NVARCHAR':([23,],[31,]),'DECIMAL':([23,],[32,]),'RPAREN':([24,25,26,27,28,29,30,32,37,38,39,45,47,48,49,51,52,55,56,57,58,59,60,61,64,66,],[33,-11,-25,35,-31,-13,-14,-16,-12,-18,-19,-10,-24,-17,-20,-22,55,-15,62,-27,-28,-29,-30,64,-21,-26,]),'COMMA':([24,25,26,27,28,29,30,32,37,38,39,45,47,48,49,51,55,56,57,58,59,60,64,66,],[34,-11,-25,36,-31,-13,-14,-16,-12,-18,-19,-10,-24,-17,-20,-22,-15,63,-27,-28,-29,-30,-21,-26,]),'PRIMARY':([28,29,30,32,37,38,39,48,49,51,55,64,],[40,-13,-14,-16,40,-18,-19,-17,-20,-22,-15,-21,]),'REFERENCE':([28,29,30,32,37,38,39,48,49,51,55,64,],[41,-13,-14,-16,41,-18,-19,-17,-20,-22,-15,-21,]),'NOT':([28,29,30,32,37,38,39,48,49,51,55,64,],[42,-13,-14,-16,42,-18,-19,-17,-20,-22,-15,-21,]),'VALUES':([35,],[46,]),'KEY':([40,],[49,]),'NULL':([42,],[51,]),'NUMBER':([43,53,63,],[52,58,58,]),'DECIMALES':([53,63,],[59,59,]),'STRING':([53,63,],[60,60,]),}
+_lr_action_items = {'CREATE':([0,2,3,4,5,6,7,20,28,54,59,66,78,],[8,8,-3,-4,-5,-6,-7,-9,-8,-10,-33,-32,-24,]),'USE':([0,2,3,4,5,6,7,20,28,54,59,66,78,],[9,9,-3,-4,-5,-6,-7,-9,-8,-10,-33,-32,-24,]),'INSERT':([0,2,3,4,5,6,7,20,28,54,59,66,78,],[10,10,-3,-4,-5,-6,-7,-9,-8,-10,-33,-32,-24,]),'ALTER':([0,2,3,4,5,6,7,20,28,54,59,66,78,],[11,11,-3,-4,-5,-6,-7,-9,-8,-10,-33,-32,-24,]),'$end':([1,2,3,4,5,6,7,12,20,28,54,59,66,78,],[0,-2,-3,-4,-5,-6,-7,-1,-9,-8,-10,-33,-32,-24,]),'DATA':([8,],[13,]),'TABLE':([8,11,],[14,17,]),'ID':([9,14,16,17,18,24,25,34,35,42,44,51,67,],[15,19,21,22,23,29,32,45,46,29,57,62,74,]),'INTO':([10,],[16,]),'BASE':([13,],[18,]),'SEMICOLON':([15,23,37,38,40,41,46,58,68,75,],[20,28,-14,-15,-17,54,59,66,-16,78,]),'LPAREN':([19,21,39,56,62,],[24,25,53,65,67,]),'ADD':([22,],[26,]),'DROP':([22,],[27,]),'COLUMN':([26,27,],[34,35,]),'INT':([29,45,],[37,37,]),'DATE':([29,45,],[38,38,]),'NVARCHAR':([29,45,],[39,39,]),'DECIMAL':([29,45,],[40,40,]),'RPAREN':([30,31,32,33,36,37,38,40,47,48,49,55,57,60,61,63,64,68,69,70,71,72,73,74,77,79,],[41,-12,-26,43,-34,-14,-15,-17,-13,-19,-20,-11,-25,-18,-21,-23,68,-16,75,-28,-29,-30,-31,77,-22,-27,]),'COMMA':([30,31,32,33,36,37,38,40,47,48,49,55,57,60,61,63,68,69,70,71,72,73,77,79,],[42,-12,-26,44,-34,-14,-15,-17,-13,-19,-20,-11,-25,-18,-21,-23,-16,76,-28,-29,-30,-31,-22,-27,]),'PRIMARY':([36,37,38,40,47,48,49,60,61,63,68,77,],[50,-14,-15,-17,50,-19,-20,-18,-21,-23,-16,-22,]),'REFERENCE':([36,37,38,40,47,48,49,60,61,63,68,77,],[51,-14,-15,-17,51,-19,-20,-18,-21,-23,-16,-22,]),'NOT':([36,37,38,40,47,48,49,60,61,63,68,77,],[52,-14,-15,-17,52,-19,-20,-18,-21,-23,-16,-22,]),'VALUES':([43,],[56,]),'KEY':([50,],[61,]),'NULL':([52,],[63,]),'NUMBER':([53,65,76,],[64,71,71,]),'DECIMALES':([65,76,],[72,72,]),'STRING':([65,76,],[73,73,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'init':([0,2,],[1,10,]),'statement':([0,2,],[2,2,]),'create_database':([0,2,],[3,3,]),'use_database':([0,2,],[4,4,]),'create_table':([0,2,],[5,5,]),'insert_into':([0,2,],[6,6,]),'columns':([20,],[24,]),'column':([20,34,],[25,45,]),'ids':([21,],[27,]),'type':([23,],[28,]),'attributes':([28,],[37,]),'attribute':([28,37,],[38,48,]),'empty':([28,],[39,]),'primitives':([53,],[56,]),'primitive':([53,63,],[57,66,]),}
+_lr_goto_items = {'init':([0,2,],[1,12,]),'statement':([0,2,],[2,2,]),'create_database':([0,2,],[3,3,]),'use_database':([0,2,],[4,4,]),'create_table':([0,2,],[5,5,]),'insert_into':([0,2,],[6,6,]),'alter_table':([0,2,],[7,7,]),'columns':([24,],[30,]),'column':([24,42,],[31,55,]),'ids':([25,],[33,]),'type':([29,45,],[36,58,]),'attributes':([36,],[47,]),'attribute':([36,47,],[48,60,]),'empty':([36,],[49,]),'primitives':([65,],[69,]),'primitive':([65,76,],[70,79,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,12 +27,13 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> init","S'",1,None,None,None),
-  ('init -> statement init','init',2,'p_init','parser.py',13),
-  ('init -> statement','init',1,'p_init','parser.py',14),
-  ('statement -> create_database','statement',1,'p_statement','parser.py',19),
-  ('statement -> use_database','statement',1,'p_statement','parser.py',20),
-  ('statement -> create_table','statement',1,'p_statement','parser.py',21),
-  ('statement -> insert_into','statement',1,'p_statement','parser.py',22),
+  ('init -> statement init','init',2,'p_init','parser.py',12),
+  ('init -> statement','init',1,'p_init','parser.py',13),
+  ('statement -> create_database','statement',1,'p_statement','parser.py',18),
+  ('statement -> use_database','statement',1,'p_statement','parser.py',19),
+  ('statement -> create_table','statement',1,'p_statement','parser.py',20),
+  ('statement -> insert_into','statement',1,'p_statement','parser.py',21),
+  ('statement -> alter_table','statement',1,'p_statement','parser.py',22),
   ('create_database -> CREATE DATA BASE ID SEMICOLON','create_database',5,'p_create_database','parser.py',28),
   ('use_database -> USE ID SEMICOLON','use_database',3,'p_use_database','parser.py',40),
   ('create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON','create_table',7,'p_create_table','parser.py',52),
@@ -50,12 +51,14 @@ _lr_productions = [
   ('attribute -> REFERENCE ID LPAREN ID RPAREN','attribute',5,'p_attribute','parser.py',137),
   ('attribute -> NOT NULL','attribute',2,'p_attribute','parser.py',138),
   ('insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON','insert_into',11,'p_insert_into','parser.py',149),
-  ('ids -> ids COMMA ID','ids',3,'p_ids','parser.py',159),
-  ('ids -> ID','ids',1,'p_ids','parser.py',160),
-  ('primitives -> primitives COMMA primitive','primitives',3,'p_primitives','parser.py',168),
-  ('primitives -> primitive','primitives',1,'p_primitives','parser.py',169),
-  ('primitive -> NUMBER','primitive',1,'p_primitive','parser.py',177),
-  ('primitive -> DECIMALES','primitive',1,'p_primitive','parser.py',178),
-  ('primitive -> STRING','primitive',1,'p_primitive','parser.py',179),
-  ('empty -> <empty>','empty',0,'p_empty','parser.py',185),
+  ('ids -> ids COMMA ID','ids',3,'p_ids','parser.py',162),
+  ('ids -> ID','ids',1,'p_ids','parser.py',163),
+  ('primitives -> primitives COMMA primitive','primitives',3,'p_primitives','parser.py',171),
+  ('primitives -> primitive','primitives',1,'p_primitives','parser.py',172),
+  ('primitive -> NUMBER','primitive',1,'p_primitive','parser.py',180),
+  ('primitive -> DECIMALES','primitive',1,'p_primitive','parser.py',181),
+  ('primitive -> STRING','primitive',1,'p_primitive','parser.py',182),
+  ('alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON','alter_table',8,'p_alter_table','parser.py',189),
+  ('alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON','alter_table',7,'p_alter_table','parser.py',190),
+  ('empty -> <empty>','empty',0,'p_empty','parser.py',196),
 ]

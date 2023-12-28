@@ -2,11 +2,8 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    ADD
-    ALTER
     AND
     AT
-    COLUMN
     COMPARE
     DIFFERENT
     DIVIDE
@@ -35,100 +32,105 @@ Rule 3     statement -> create_database
 Rule 4     statement -> use_database
 Rule 5     statement -> create_table
 Rule 6     statement -> insert_into
-Rule 7     create_database -> CREATE DATA BASE ID SEMICOLON
-Rule 8     use_database -> USE ID SEMICOLON
-Rule 9     create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
-Rule 10    columns -> columns COMMA column
-Rule 11    columns -> column
-Rule 12    column -> ID type attributes
-Rule 13    type -> INT
-Rule 14    type -> DATE
-Rule 15    type -> NVARCHAR LPAREN NUMBER RPAREN
-Rule 16    type -> DECIMAL
-Rule 17    attributes -> attributes attribute
-Rule 18    attributes -> attribute
-Rule 19    attributes -> empty
-Rule 20    attribute -> PRIMARY KEY
-Rule 21    attribute -> REFERENCE ID LPAREN ID RPAREN
-Rule 22    attribute -> NOT NULL
-Rule 23    insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
-Rule 24    ids -> ids COMMA ID
-Rule 25    ids -> ID
-Rule 26    primitives -> primitives COMMA primitive
-Rule 27    primitives -> primitive
-Rule 28    primitive -> NUMBER
-Rule 29    primitive -> DECIMALES
-Rule 30    primitive -> STRING
-Rule 31    empty -> <empty>
+Rule 7     statement -> alter_table
+Rule 8     create_database -> CREATE DATA BASE ID SEMICOLON
+Rule 9     use_database -> USE ID SEMICOLON
+Rule 10    create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
+Rule 11    columns -> columns COMMA column
+Rule 12    columns -> column
+Rule 13    column -> ID type attributes
+Rule 14    type -> INT
+Rule 15    type -> DATE
+Rule 16    type -> NVARCHAR LPAREN NUMBER RPAREN
+Rule 17    type -> DECIMAL
+Rule 18    attributes -> attributes attribute
+Rule 19    attributes -> attribute
+Rule 20    attributes -> empty
+Rule 21    attribute -> PRIMARY KEY
+Rule 22    attribute -> REFERENCE ID LPAREN ID RPAREN
+Rule 23    attribute -> NOT NULL
+Rule 24    insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+Rule 25    ids -> ids COMMA ID
+Rule 26    ids -> ID
+Rule 27    primitives -> primitives COMMA primitive
+Rule 28    primitives -> primitive
+Rule 29    primitive -> NUMBER
+Rule 30    primitive -> DECIMALES
+Rule 31    primitive -> STRING
+Rule 32    alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON
+Rule 33    alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON
+Rule 34    empty -> <empty>
 
 Terminals, with rules where they appear
 
-ADD                  : 
-ALTER                : 
+ADD                  : 32
+ALTER                : 32 33
 AND                  : 
 AT                   : 
-BASE                 : 7
-COLUMN               : 
-COMMA                : 10 24 26
+BASE                 : 8
+COLUMN               : 32 33
+COMMA                : 11 25 27
 COMPARE              : 
-CREATE               : 7 9
-DATA                 : 7
-DATE                 : 14
-DECIMAL              : 16
-DECIMALES            : 29
+CREATE               : 8 10
+DATA                 : 8
+DATE                 : 15
+DECIMAL              : 17
+DECIMALES            : 30
 DIFFERENT            : 
 DIVIDE               : 
+DROP                 : 33
 EQUAL                : 
 FROM                 : 
 GREATER              : 
 GREATER_EQUAL        : 
-ID                   : 7 8 9 12 21 21 23 24 25
-INSERT               : 23
-INT                  : 13
-INTO                 : 23
-KEY                  : 20
+ID                   : 8 9 10 13 22 22 24 25 26 32 32 33 33
+INSERT               : 24
+INT                  : 14
+INTO                 : 24
+KEY                  : 21
 LESS                 : 
 LESS_EQUAL           : 
-LPAREN               : 9 15 21 23 23
+LPAREN               : 10 16 22 24 24
 MINUS                : 
-NOT                  : 22
+NOT                  : 23
 NOT_EQUAL            : 
 NOT_SYMBOL           : 
-NULL                 : 22
-NUMBER               : 15 28
-NVARCHAR             : 15
+NULL                 : 23
+NUMBER               : 16 29
+NVARCHAR             : 16
 OR                   : 
 PERIOD               : 
 PLUS                 : 
-PRIMARY              : 20
-REFERENCE            : 21
-RPAREN               : 9 15 21 23 23
+PRIMARY              : 21
+REFERENCE            : 22
+RPAREN               : 10 16 22 24 24
 SELECT               : 
-SEMICOLON            : 7 8 9 23
-STRING               : 30
-TABLE                : 9
+SEMICOLON            : 8 9 10 24 32 33
+STRING               : 31
+TABLE                : 10 32 33
 TIMES                : 
-USE                  : 8
-VALUES               : 23
+USE                  : 9
+VALUES               : 24
 WHERE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-attribute            : 17 18
-attributes           : 12 17
-column               : 10 11
-columns              : 9 10
+alter_table          : 7
+attribute            : 18 19
+attributes           : 13 18
+column               : 11 12
+columns              : 10 11
 create_database      : 3
 create_table         : 5
-empty                : 19
-ids                  : 23 24
+empty                : 20
+ids                  : 24 25
 init                 : 1 0
 insert_into          : 6
-primitive            : 26 27
-primitives           : 23 26
+primitive            : 27 28
+primitives           : 24 27
 statement            : 1 2
-type                 : 12
+type                 : 13 32
 use_database         : 4
 
 Parsing method: LALR
@@ -142,14 +144,18 @@ state 0
     (4) statement -> . use_database
     (5) statement -> . create_table
     (6) statement -> . insert_into
-    (7) create_database -> . CREATE DATA BASE ID SEMICOLON
-    (8) use_database -> . USE ID SEMICOLON
-    (9) create_table -> . CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
-    (23) insert_into -> . INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (7) statement -> . alter_table
+    (8) create_database -> . CREATE DATA BASE ID SEMICOLON
+    (9) use_database -> . USE ID SEMICOLON
+    (10) create_table -> . CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
+    (24) insert_into -> . INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (32) alter_table -> . ALTER TABLE ID ADD COLUMN ID type SEMICOLON
+    (33) alter_table -> . ALTER TABLE ID DROP COLUMN ID SEMICOLON
 
-    CREATE          shift and go to state 7
-    USE             shift and go to state 8
-    INSERT          shift and go to state 9
+    CREATE          shift and go to state 8
+    USE             shift and go to state 9
+    INSERT          shift and go to state 10
+    ALTER           shift and go to state 11
 
     init                           shift and go to state 1
     statement                      shift and go to state 2
@@ -157,6 +163,7 @@ state 0
     use_database                   shift and go to state 4
     create_table                   shift and go to state 5
     insert_into                    shift and go to state 6
+    alter_table                    shift and go to state 7
 
 state 1
 
@@ -174,22 +181,27 @@ state 2
     (4) statement -> . use_database
     (5) statement -> . create_table
     (6) statement -> . insert_into
-    (7) create_database -> . CREATE DATA BASE ID SEMICOLON
-    (8) use_database -> . USE ID SEMICOLON
-    (9) create_table -> . CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
-    (23) insert_into -> . INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (7) statement -> . alter_table
+    (8) create_database -> . CREATE DATA BASE ID SEMICOLON
+    (9) use_database -> . USE ID SEMICOLON
+    (10) create_table -> . CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
+    (24) insert_into -> . INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (32) alter_table -> . ALTER TABLE ID ADD COLUMN ID type SEMICOLON
+    (33) alter_table -> . ALTER TABLE ID DROP COLUMN ID SEMICOLON
 
     $end            reduce using rule 2 (init -> statement .)
-    CREATE          shift and go to state 7
-    USE             shift and go to state 8
-    INSERT          shift and go to state 9
+    CREATE          shift and go to state 8
+    USE             shift and go to state 9
+    INSERT          shift and go to state 10
+    ALTER           shift and go to state 11
 
     statement                      shift and go to state 2
-    init                           shift and go to state 10
+    init                           shift and go to state 12
     create_database                shift and go to state 3
     use_database                   shift and go to state 4
     create_table                   shift and go to state 5
     insert_into                    shift and go to state 6
+    alter_table                    shift and go to state 7
 
 state 3
 
@@ -198,6 +210,7 @@ state 3
     CREATE          reduce using rule 3 (statement -> create_database .)
     USE             reduce using rule 3 (statement -> create_database .)
     INSERT          reduce using rule 3 (statement -> create_database .)
+    ALTER           reduce using rule 3 (statement -> create_database .)
     $end            reduce using rule 3 (statement -> create_database .)
 
 
@@ -208,6 +221,7 @@ state 4
     CREATE          reduce using rule 4 (statement -> use_database .)
     USE             reduce using rule 4 (statement -> use_database .)
     INSERT          reduce using rule 4 (statement -> use_database .)
+    ALTER           reduce using rule 4 (statement -> use_database .)
     $end            reduce using rule 4 (statement -> use_database .)
 
 
@@ -218,6 +232,7 @@ state 5
     CREATE          reduce using rule 5 (statement -> create_table .)
     USE             reduce using rule 5 (statement -> create_table .)
     INSERT          reduce using rule 5 (statement -> create_table .)
+    ALTER           reduce using rule 5 (statement -> create_table .)
     $end            reduce using rule 5 (statement -> create_table .)
 
 
@@ -228,563 +243,687 @@ state 6
     CREATE          reduce using rule 6 (statement -> insert_into .)
     USE             reduce using rule 6 (statement -> insert_into .)
     INSERT          reduce using rule 6 (statement -> insert_into .)
+    ALTER           reduce using rule 6 (statement -> insert_into .)
     $end            reduce using rule 6 (statement -> insert_into .)
 
 
 state 7
 
-    (7) create_database -> CREATE . DATA BASE ID SEMICOLON
-    (9) create_table -> CREATE . TABLE ID LPAREN columns RPAREN SEMICOLON
+    (7) statement -> alter_table .
 
-    DATA            shift and go to state 11
-    TABLE           shift and go to state 12
+    CREATE          reduce using rule 7 (statement -> alter_table .)
+    USE             reduce using rule 7 (statement -> alter_table .)
+    INSERT          reduce using rule 7 (statement -> alter_table .)
+    ALTER           reduce using rule 7 (statement -> alter_table .)
+    $end            reduce using rule 7 (statement -> alter_table .)
 
 
 state 8
 
-    (8) use_database -> USE . ID SEMICOLON
+    (8) create_database -> CREATE . DATA BASE ID SEMICOLON
+    (10) create_table -> CREATE . TABLE ID LPAREN columns RPAREN SEMICOLON
 
-    ID              shift and go to state 13
+    DATA            shift and go to state 13
+    TABLE           shift and go to state 14
 
 
 state 9
 
-    (23) insert_into -> INSERT . INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (9) use_database -> USE . ID SEMICOLON
 
-    INTO            shift and go to state 14
+    ID              shift and go to state 15
 
 
 state 10
+
+    (24) insert_into -> INSERT . INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+
+    INTO            shift and go to state 16
+
+
+state 11
+
+    (32) alter_table -> ALTER . TABLE ID ADD COLUMN ID type SEMICOLON
+    (33) alter_table -> ALTER . TABLE ID DROP COLUMN ID SEMICOLON
+
+    TABLE           shift and go to state 17
+
+
+state 12
 
     (1) init -> statement init .
 
     $end            reduce using rule 1 (init -> statement init .)
 
 
-state 11
-
-    (7) create_database -> CREATE DATA . BASE ID SEMICOLON
-
-    BASE            shift and go to state 15
-
-
-state 12
-
-    (9) create_table -> CREATE TABLE . ID LPAREN columns RPAREN SEMICOLON
-
-    ID              shift and go to state 16
-
-
 state 13
 
-    (8) use_database -> USE ID . SEMICOLON
+    (8) create_database -> CREATE DATA . BASE ID SEMICOLON
 
-    SEMICOLON       shift and go to state 17
+    BASE            shift and go to state 18
 
 
 state 14
 
-    (23) insert_into -> INSERT INTO . ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
-
-    ID              shift and go to state 18
-
-
-state 15
-
-    (7) create_database -> CREATE DATA BASE . ID SEMICOLON
+    (10) create_table -> CREATE TABLE . ID LPAREN columns RPAREN SEMICOLON
 
     ID              shift and go to state 19
 
 
+state 15
+
+    (9) use_database -> USE ID . SEMICOLON
+
+    SEMICOLON       shift and go to state 20
+
+
 state 16
 
-    (9) create_table -> CREATE TABLE ID . LPAREN columns RPAREN SEMICOLON
+    (24) insert_into -> INSERT INTO . ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
 
-    LPAREN          shift and go to state 20
+    ID              shift and go to state 21
 
 
 state 17
 
-    (8) use_database -> USE ID SEMICOLON .
+    (32) alter_table -> ALTER TABLE . ID ADD COLUMN ID type SEMICOLON
+    (33) alter_table -> ALTER TABLE . ID DROP COLUMN ID SEMICOLON
 
-    CREATE          reduce using rule 8 (use_database -> USE ID SEMICOLON .)
-    USE             reduce using rule 8 (use_database -> USE ID SEMICOLON .)
-    INSERT          reduce using rule 8 (use_database -> USE ID SEMICOLON .)
-    $end            reduce using rule 8 (use_database -> USE ID SEMICOLON .)
+    ID              shift and go to state 22
 
 
 state 18
 
-    (23) insert_into -> INSERT INTO ID . LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (8) create_database -> CREATE DATA BASE . ID SEMICOLON
 
-    LPAREN          shift and go to state 21
+    ID              shift and go to state 23
 
 
 state 19
 
-    (7) create_database -> CREATE DATA BASE ID . SEMICOLON
+    (10) create_table -> CREATE TABLE ID . LPAREN columns RPAREN SEMICOLON
 
-    SEMICOLON       shift and go to state 22
+    LPAREN          shift and go to state 24
 
 
 state 20
 
-    (9) create_table -> CREATE TABLE ID LPAREN . columns RPAREN SEMICOLON
-    (10) columns -> . columns COMMA column
-    (11) columns -> . column
-    (12) column -> . ID type attributes
+    (9) use_database -> USE ID SEMICOLON .
 
-    ID              shift and go to state 23
+    CREATE          reduce using rule 9 (use_database -> USE ID SEMICOLON .)
+    USE             reduce using rule 9 (use_database -> USE ID SEMICOLON .)
+    INSERT          reduce using rule 9 (use_database -> USE ID SEMICOLON .)
+    ALTER           reduce using rule 9 (use_database -> USE ID SEMICOLON .)
+    $end            reduce using rule 9 (use_database -> USE ID SEMICOLON .)
 
-    columns                        shift and go to state 24
-    column                         shift and go to state 25
 
 state 21
 
-    (23) insert_into -> INSERT INTO ID LPAREN . ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
-    (24) ids -> . ids COMMA ID
-    (25) ids -> . ID
+    (24) insert_into -> INSERT INTO ID . LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
 
-    ID              shift and go to state 26
+    LPAREN          shift and go to state 25
 
-    ids                            shift and go to state 27
 
 state 22
 
-    (7) create_database -> CREATE DATA BASE ID SEMICOLON .
+    (32) alter_table -> ALTER TABLE ID . ADD COLUMN ID type SEMICOLON
+    (33) alter_table -> ALTER TABLE ID . DROP COLUMN ID SEMICOLON
 
-    CREATE          reduce using rule 7 (create_database -> CREATE DATA BASE ID SEMICOLON .)
-    USE             reduce using rule 7 (create_database -> CREATE DATA BASE ID SEMICOLON .)
-    INSERT          reduce using rule 7 (create_database -> CREATE DATA BASE ID SEMICOLON .)
-    $end            reduce using rule 7 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    ADD             shift and go to state 26
+    DROP            shift and go to state 27
 
 
 state 23
 
-    (12) column -> ID . type attributes
-    (13) type -> . INT
-    (14) type -> . DATE
-    (15) type -> . NVARCHAR LPAREN NUMBER RPAREN
-    (16) type -> . DECIMAL
+    (8) create_database -> CREATE DATA BASE ID . SEMICOLON
 
-    INT             shift and go to state 29
-    DATE            shift and go to state 30
-    NVARCHAR        shift and go to state 31
-    DECIMAL         shift and go to state 32
+    SEMICOLON       shift and go to state 28
 
-    type                           shift and go to state 28
 
 state 24
 
-    (9) create_table -> CREATE TABLE ID LPAREN columns . RPAREN SEMICOLON
-    (10) columns -> columns . COMMA column
+    (10) create_table -> CREATE TABLE ID LPAREN . columns RPAREN SEMICOLON
+    (11) columns -> . columns COMMA column
+    (12) columns -> . column
+    (13) column -> . ID type attributes
 
-    RPAREN          shift and go to state 33
-    COMMA           shift and go to state 34
+    ID              shift and go to state 29
 
+    columns                        shift and go to state 30
+    column                         shift and go to state 31
 
 state 25
 
-    (11) columns -> column .
+    (24) insert_into -> INSERT INTO ID LPAREN . ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (25) ids -> . ids COMMA ID
+    (26) ids -> . ID
 
-    RPAREN          reduce using rule 11 (columns -> column .)
-    COMMA           reduce using rule 11 (columns -> column .)
+    ID              shift and go to state 32
 
+    ids                            shift and go to state 33
 
 state 26
 
-    (25) ids -> ID .
+    (32) alter_table -> ALTER TABLE ID ADD . COLUMN ID type SEMICOLON
 
-    RPAREN          reduce using rule 25 (ids -> ID .)
-    COMMA           reduce using rule 25 (ids -> ID .)
+    COLUMN          shift and go to state 34
 
 
 state 27
 
-    (23) insert_into -> INSERT INTO ID LPAREN ids . RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
-    (24) ids -> ids . COMMA ID
+    (33) alter_table -> ALTER TABLE ID DROP . COLUMN ID SEMICOLON
 
-    RPAREN          shift and go to state 35
-    COMMA           shift and go to state 36
+    COLUMN          shift and go to state 35
 
 
 state 28
 
-    (12) column -> ID type . attributes
-    (17) attributes -> . attributes attribute
-    (18) attributes -> . attribute
-    (19) attributes -> . empty
-    (20) attribute -> . PRIMARY KEY
-    (21) attribute -> . REFERENCE ID LPAREN ID RPAREN
-    (22) attribute -> . NOT NULL
-    (31) empty -> .
+    (8) create_database -> CREATE DATA BASE ID SEMICOLON .
 
-  ! shift/reduce conflict for PRIMARY resolved as shift
-  ! shift/reduce conflict for REFERENCE resolved as shift
-  ! shift/reduce conflict for NOT resolved as shift
-    PRIMARY         shift and go to state 40
-    REFERENCE       shift and go to state 41
-    NOT             shift and go to state 42
-    RPAREN          reduce using rule 31 (empty -> .)
-    COMMA           reduce using rule 31 (empty -> .)
+    CREATE          reduce using rule 8 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    USE             reduce using rule 8 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    INSERT          reduce using rule 8 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    ALTER           reduce using rule 8 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    $end            reduce using rule 8 (create_database -> CREATE DATA BASE ID SEMICOLON .)
 
-  ! PRIMARY         [ reduce using rule 31 (empty -> .) ]
-  ! REFERENCE       [ reduce using rule 31 (empty -> .) ]
-  ! NOT             [ reduce using rule 31 (empty -> .) ]
-
-    attributes                     shift and go to state 37
-    attribute                      shift and go to state 38
-    empty                          shift and go to state 39
 
 state 29
 
-    (13) type -> INT .
+    (13) column -> ID . type attributes
+    (14) type -> . INT
+    (15) type -> . DATE
+    (16) type -> . NVARCHAR LPAREN NUMBER RPAREN
+    (17) type -> . DECIMAL
 
-    PRIMARY         reduce using rule 13 (type -> INT .)
-    REFERENCE       reduce using rule 13 (type -> INT .)
-    NOT             reduce using rule 13 (type -> INT .)
-    RPAREN          reduce using rule 13 (type -> INT .)
-    COMMA           reduce using rule 13 (type -> INT .)
+    INT             shift and go to state 37
+    DATE            shift and go to state 38
+    NVARCHAR        shift and go to state 39
+    DECIMAL         shift and go to state 40
 
+    type                           shift and go to state 36
 
 state 30
 
-    (14) type -> DATE .
+    (10) create_table -> CREATE TABLE ID LPAREN columns . RPAREN SEMICOLON
+    (11) columns -> columns . COMMA column
 
-    PRIMARY         reduce using rule 14 (type -> DATE .)
-    REFERENCE       reduce using rule 14 (type -> DATE .)
-    NOT             reduce using rule 14 (type -> DATE .)
-    RPAREN          reduce using rule 14 (type -> DATE .)
-    COMMA           reduce using rule 14 (type -> DATE .)
+    RPAREN          shift and go to state 41
+    COMMA           shift and go to state 42
 
 
 state 31
 
-    (15) type -> NVARCHAR . LPAREN NUMBER RPAREN
+    (12) columns -> column .
 
-    LPAREN          shift and go to state 43
+    RPAREN          reduce using rule 12 (columns -> column .)
+    COMMA           reduce using rule 12 (columns -> column .)
 
 
 state 32
 
-    (16) type -> DECIMAL .
+    (26) ids -> ID .
 
-    PRIMARY         reduce using rule 16 (type -> DECIMAL .)
-    REFERENCE       reduce using rule 16 (type -> DECIMAL .)
-    NOT             reduce using rule 16 (type -> DECIMAL .)
-    RPAREN          reduce using rule 16 (type -> DECIMAL .)
-    COMMA           reduce using rule 16 (type -> DECIMAL .)
+    RPAREN          reduce using rule 26 (ids -> ID .)
+    COMMA           reduce using rule 26 (ids -> ID .)
 
 
 state 33
 
-    (9) create_table -> CREATE TABLE ID LPAREN columns RPAREN . SEMICOLON
+    (24) insert_into -> INSERT INTO ID LPAREN ids . RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (25) ids -> ids . COMMA ID
 
-    SEMICOLON       shift and go to state 44
+    RPAREN          shift and go to state 43
+    COMMA           shift and go to state 44
 
 
 state 34
 
-    (10) columns -> columns COMMA . column
-    (12) column -> . ID type attributes
+    (32) alter_table -> ALTER TABLE ID ADD COLUMN . ID type SEMICOLON
 
-    ID              shift and go to state 23
+    ID              shift and go to state 45
 
-    column                         shift and go to state 45
 
 state 35
 
-    (23) insert_into -> INSERT INTO ID LPAREN ids RPAREN . VALUES LPAREN primitives RPAREN SEMICOLON
+    (33) alter_table -> ALTER TABLE ID DROP COLUMN . ID SEMICOLON
 
-    VALUES          shift and go to state 46
+    ID              shift and go to state 46
 
 
 state 36
 
-    (24) ids -> ids COMMA . ID
+    (13) column -> ID type . attributes
+    (18) attributes -> . attributes attribute
+    (19) attributes -> . attribute
+    (20) attributes -> . empty
+    (21) attribute -> . PRIMARY KEY
+    (22) attribute -> . REFERENCE ID LPAREN ID RPAREN
+    (23) attribute -> . NOT NULL
+    (34) empty -> .
 
-    ID              shift and go to state 47
+  ! shift/reduce conflict for PRIMARY resolved as shift
+  ! shift/reduce conflict for REFERENCE resolved as shift
+  ! shift/reduce conflict for NOT resolved as shift
+    PRIMARY         shift and go to state 50
+    REFERENCE       shift and go to state 51
+    NOT             shift and go to state 52
+    RPAREN          reduce using rule 34 (empty -> .)
+    COMMA           reduce using rule 34 (empty -> .)
 
+  ! PRIMARY         [ reduce using rule 34 (empty -> .) ]
+  ! REFERENCE       [ reduce using rule 34 (empty -> .) ]
+  ! NOT             [ reduce using rule 34 (empty -> .) ]
+
+    attributes                     shift and go to state 47
+    attribute                      shift and go to state 48
+    empty                          shift and go to state 49
 
 state 37
 
-    (12) column -> ID type attributes .
-    (17) attributes -> attributes . attribute
-    (20) attribute -> . PRIMARY KEY
-    (21) attribute -> . REFERENCE ID LPAREN ID RPAREN
-    (22) attribute -> . NOT NULL
+    (14) type -> INT .
 
-    RPAREN          reduce using rule 12 (column -> ID type attributes .)
-    COMMA           reduce using rule 12 (column -> ID type attributes .)
-    PRIMARY         shift and go to state 40
-    REFERENCE       shift and go to state 41
-    NOT             shift and go to state 42
+    PRIMARY         reduce using rule 14 (type -> INT .)
+    REFERENCE       reduce using rule 14 (type -> INT .)
+    NOT             reduce using rule 14 (type -> INT .)
+    RPAREN          reduce using rule 14 (type -> INT .)
+    COMMA           reduce using rule 14 (type -> INT .)
+    SEMICOLON       reduce using rule 14 (type -> INT .)
 
-    attribute                      shift and go to state 48
 
 state 38
 
-    (18) attributes -> attribute .
+    (15) type -> DATE .
 
-    PRIMARY         reduce using rule 18 (attributes -> attribute .)
-    REFERENCE       reduce using rule 18 (attributes -> attribute .)
-    NOT             reduce using rule 18 (attributes -> attribute .)
-    RPAREN          reduce using rule 18 (attributes -> attribute .)
-    COMMA           reduce using rule 18 (attributes -> attribute .)
+    PRIMARY         reduce using rule 15 (type -> DATE .)
+    REFERENCE       reduce using rule 15 (type -> DATE .)
+    NOT             reduce using rule 15 (type -> DATE .)
+    RPAREN          reduce using rule 15 (type -> DATE .)
+    COMMA           reduce using rule 15 (type -> DATE .)
+    SEMICOLON       reduce using rule 15 (type -> DATE .)
 
 
 state 39
 
-    (19) attributes -> empty .
-
-    PRIMARY         reduce using rule 19 (attributes -> empty .)
-    REFERENCE       reduce using rule 19 (attributes -> empty .)
-    NOT             reduce using rule 19 (attributes -> empty .)
-    RPAREN          reduce using rule 19 (attributes -> empty .)
-    COMMA           reduce using rule 19 (attributes -> empty .)
-
-
-state 40
-
-    (20) attribute -> PRIMARY . KEY
-
-    KEY             shift and go to state 49
-
-
-state 41
-
-    (21) attribute -> REFERENCE . ID LPAREN ID RPAREN
-
-    ID              shift and go to state 50
-
-
-state 42
-
-    (22) attribute -> NOT . NULL
-
-    NULL            shift and go to state 51
-
-
-state 43
-
-    (15) type -> NVARCHAR LPAREN . NUMBER RPAREN
-
-    NUMBER          shift and go to state 52
-
-
-state 44
-
-    (9) create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .
-
-    CREATE          reduce using rule 9 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
-    USE             reduce using rule 9 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
-    INSERT          reduce using rule 9 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
-    $end            reduce using rule 9 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
-
-
-state 45
-
-    (10) columns -> columns COMMA column .
-
-    RPAREN          reduce using rule 10 (columns -> columns COMMA column .)
-    COMMA           reduce using rule 10 (columns -> columns COMMA column .)
-
-
-state 46
-
-    (23) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES . LPAREN primitives RPAREN SEMICOLON
+    (16) type -> NVARCHAR . LPAREN NUMBER RPAREN
 
     LPAREN          shift and go to state 53
 
 
+state 40
+
+    (17) type -> DECIMAL .
+
+    PRIMARY         reduce using rule 17 (type -> DECIMAL .)
+    REFERENCE       reduce using rule 17 (type -> DECIMAL .)
+    NOT             reduce using rule 17 (type -> DECIMAL .)
+    RPAREN          reduce using rule 17 (type -> DECIMAL .)
+    COMMA           reduce using rule 17 (type -> DECIMAL .)
+    SEMICOLON       reduce using rule 17 (type -> DECIMAL .)
+
+
+state 41
+
+    (10) create_table -> CREATE TABLE ID LPAREN columns RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 54
+
+
+state 42
+
+    (11) columns -> columns COMMA . column
+    (13) column -> . ID type attributes
+
+    ID              shift and go to state 29
+
+    column                         shift and go to state 55
+
+state 43
+
+    (24) insert_into -> INSERT INTO ID LPAREN ids RPAREN . VALUES LPAREN primitives RPAREN SEMICOLON
+
+    VALUES          shift and go to state 56
+
+
+state 44
+
+    (25) ids -> ids COMMA . ID
+
+    ID              shift and go to state 57
+
+
+state 45
+
+    (32) alter_table -> ALTER TABLE ID ADD COLUMN ID . type SEMICOLON
+    (14) type -> . INT
+    (15) type -> . DATE
+    (16) type -> . NVARCHAR LPAREN NUMBER RPAREN
+    (17) type -> . DECIMAL
+
+    INT             shift and go to state 37
+    DATE            shift and go to state 38
+    NVARCHAR        shift and go to state 39
+    DECIMAL         shift and go to state 40
+
+    type                           shift and go to state 58
+
+state 46
+
+    (33) alter_table -> ALTER TABLE ID DROP COLUMN ID . SEMICOLON
+
+    SEMICOLON       shift and go to state 59
+
+
 state 47
 
-    (24) ids -> ids COMMA ID .
+    (13) column -> ID type attributes .
+    (18) attributes -> attributes . attribute
+    (21) attribute -> . PRIMARY KEY
+    (22) attribute -> . REFERENCE ID LPAREN ID RPAREN
+    (23) attribute -> . NOT NULL
 
-    RPAREN          reduce using rule 24 (ids -> ids COMMA ID .)
-    COMMA           reduce using rule 24 (ids -> ids COMMA ID .)
+    RPAREN          reduce using rule 13 (column -> ID type attributes .)
+    COMMA           reduce using rule 13 (column -> ID type attributes .)
+    PRIMARY         shift and go to state 50
+    REFERENCE       shift and go to state 51
+    NOT             shift and go to state 52
 
+    attribute                      shift and go to state 60
 
 state 48
 
-    (17) attributes -> attributes attribute .
+    (19) attributes -> attribute .
 
-    PRIMARY         reduce using rule 17 (attributes -> attributes attribute .)
-    REFERENCE       reduce using rule 17 (attributes -> attributes attribute .)
-    NOT             reduce using rule 17 (attributes -> attributes attribute .)
-    RPAREN          reduce using rule 17 (attributes -> attributes attribute .)
-    COMMA           reduce using rule 17 (attributes -> attributes attribute .)
+    PRIMARY         reduce using rule 19 (attributes -> attribute .)
+    REFERENCE       reduce using rule 19 (attributes -> attribute .)
+    NOT             reduce using rule 19 (attributes -> attribute .)
+    RPAREN          reduce using rule 19 (attributes -> attribute .)
+    COMMA           reduce using rule 19 (attributes -> attribute .)
 
 
 state 49
 
-    (20) attribute -> PRIMARY KEY .
+    (20) attributes -> empty .
 
-    PRIMARY         reduce using rule 20 (attribute -> PRIMARY KEY .)
-    REFERENCE       reduce using rule 20 (attribute -> PRIMARY KEY .)
-    NOT             reduce using rule 20 (attribute -> PRIMARY KEY .)
-    RPAREN          reduce using rule 20 (attribute -> PRIMARY KEY .)
-    COMMA           reduce using rule 20 (attribute -> PRIMARY KEY .)
+    PRIMARY         reduce using rule 20 (attributes -> empty .)
+    REFERENCE       reduce using rule 20 (attributes -> empty .)
+    NOT             reduce using rule 20 (attributes -> empty .)
+    RPAREN          reduce using rule 20 (attributes -> empty .)
+    COMMA           reduce using rule 20 (attributes -> empty .)
 
 
 state 50
 
-    (21) attribute -> REFERENCE ID . LPAREN ID RPAREN
+    (21) attribute -> PRIMARY . KEY
 
-    LPAREN          shift and go to state 54
+    KEY             shift and go to state 61
 
 
 state 51
 
-    (22) attribute -> NOT NULL .
+    (22) attribute -> REFERENCE . ID LPAREN ID RPAREN
 
-    PRIMARY         reduce using rule 22 (attribute -> NOT NULL .)
-    REFERENCE       reduce using rule 22 (attribute -> NOT NULL .)
-    NOT             reduce using rule 22 (attribute -> NOT NULL .)
-    RPAREN          reduce using rule 22 (attribute -> NOT NULL .)
-    COMMA           reduce using rule 22 (attribute -> NOT NULL .)
+    ID              shift and go to state 62
 
 
 state 52
 
-    (15) type -> NVARCHAR LPAREN NUMBER . RPAREN
+    (23) attribute -> NOT . NULL
 
-    RPAREN          shift and go to state 55
+    NULL            shift and go to state 63
 
 
 state 53
 
-    (23) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN . primitives RPAREN SEMICOLON
-    (26) primitives -> . primitives COMMA primitive
-    (27) primitives -> . primitive
-    (28) primitive -> . NUMBER
-    (29) primitive -> . DECIMALES
-    (30) primitive -> . STRING
+    (16) type -> NVARCHAR LPAREN . NUMBER RPAREN
 
-    NUMBER          shift and go to state 58
-    DECIMALES       shift and go to state 59
-    STRING          shift and go to state 60
+    NUMBER          shift and go to state 64
 
-    primitives                     shift and go to state 56
-    primitive                      shift and go to state 57
 
 state 54
 
-    (21) attribute -> REFERENCE ID LPAREN . ID RPAREN
+    (10) create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .
 
-    ID              shift and go to state 61
+    CREATE          reduce using rule 10 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    USE             reduce using rule 10 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    INSERT          reduce using rule 10 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    ALTER           reduce using rule 10 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    $end            reduce using rule 10 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
 
 
 state 55
 
-    (15) type -> NVARCHAR LPAREN NUMBER RPAREN .
+    (11) columns -> columns COMMA column .
 
-    PRIMARY         reduce using rule 15 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
-    REFERENCE       reduce using rule 15 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
-    NOT             reduce using rule 15 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
-    RPAREN          reduce using rule 15 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
-    COMMA           reduce using rule 15 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+    RPAREN          reduce using rule 11 (columns -> columns COMMA column .)
+    COMMA           reduce using rule 11 (columns -> columns COMMA column .)
 
 
 state 56
 
-    (23) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives . RPAREN SEMICOLON
-    (26) primitives -> primitives . COMMA primitive
+    (24) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES . LPAREN primitives RPAREN SEMICOLON
 
-    RPAREN          shift and go to state 62
-    COMMA           shift and go to state 63
+    LPAREN          shift and go to state 65
 
 
 state 57
 
-    (27) primitives -> primitive .
+    (25) ids -> ids COMMA ID .
 
-    RPAREN          reduce using rule 27 (primitives -> primitive .)
-    COMMA           reduce using rule 27 (primitives -> primitive .)
+    RPAREN          reduce using rule 25 (ids -> ids COMMA ID .)
+    COMMA           reduce using rule 25 (ids -> ids COMMA ID .)
 
 
 state 58
 
-    (28) primitive -> NUMBER .
+    (32) alter_table -> ALTER TABLE ID ADD COLUMN ID type . SEMICOLON
 
-    RPAREN          reduce using rule 28 (primitive -> NUMBER .)
-    COMMA           reduce using rule 28 (primitive -> NUMBER .)
+    SEMICOLON       shift and go to state 66
 
 
 state 59
 
-    (29) primitive -> DECIMALES .
+    (33) alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .
 
-    RPAREN          reduce using rule 29 (primitive -> DECIMALES .)
-    COMMA           reduce using rule 29 (primitive -> DECIMALES .)
+    CREATE          reduce using rule 33 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    USE             reduce using rule 33 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    INSERT          reduce using rule 33 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    ALTER           reduce using rule 33 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    $end            reduce using rule 33 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
 
 
 state 60
 
-    (30) primitive -> STRING .
+    (18) attributes -> attributes attribute .
 
-    RPAREN          reduce using rule 30 (primitive -> STRING .)
-    COMMA           reduce using rule 30 (primitive -> STRING .)
+    PRIMARY         reduce using rule 18 (attributes -> attributes attribute .)
+    REFERENCE       reduce using rule 18 (attributes -> attributes attribute .)
+    NOT             reduce using rule 18 (attributes -> attributes attribute .)
+    RPAREN          reduce using rule 18 (attributes -> attributes attribute .)
+    COMMA           reduce using rule 18 (attributes -> attributes attribute .)
 
 
 state 61
 
-    (21) attribute -> REFERENCE ID LPAREN ID . RPAREN
+    (21) attribute -> PRIMARY KEY .
 
-    RPAREN          shift and go to state 64
+    PRIMARY         reduce using rule 21 (attribute -> PRIMARY KEY .)
+    REFERENCE       reduce using rule 21 (attribute -> PRIMARY KEY .)
+    NOT             reduce using rule 21 (attribute -> PRIMARY KEY .)
+    RPAREN          reduce using rule 21 (attribute -> PRIMARY KEY .)
+    COMMA           reduce using rule 21 (attribute -> PRIMARY KEY .)
 
 
 state 62
 
-    (23) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN . SEMICOLON
+    (22) attribute -> REFERENCE ID . LPAREN ID RPAREN
 
-    SEMICOLON       shift and go to state 65
+    LPAREN          shift and go to state 67
 
 
 state 63
 
-    (26) primitives -> primitives COMMA . primitive
-    (28) primitive -> . NUMBER
-    (29) primitive -> . DECIMALES
-    (30) primitive -> . STRING
+    (23) attribute -> NOT NULL .
 
-    NUMBER          shift and go to state 58
-    DECIMALES       shift and go to state 59
-    STRING          shift and go to state 60
+    PRIMARY         reduce using rule 23 (attribute -> NOT NULL .)
+    REFERENCE       reduce using rule 23 (attribute -> NOT NULL .)
+    NOT             reduce using rule 23 (attribute -> NOT NULL .)
+    RPAREN          reduce using rule 23 (attribute -> NOT NULL .)
+    COMMA           reduce using rule 23 (attribute -> NOT NULL .)
 
-    primitive                      shift and go to state 66
 
 state 64
 
-    (21) attribute -> REFERENCE ID LPAREN ID RPAREN .
+    (16) type -> NVARCHAR LPAREN NUMBER . RPAREN
 
-    PRIMARY         reduce using rule 21 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
-    REFERENCE       reduce using rule 21 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
-    NOT             reduce using rule 21 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
-    RPAREN          reduce using rule 21 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
-    COMMA           reduce using rule 21 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
+    RPAREN          shift and go to state 68
 
 
 state 65
 
-    (23) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .
+    (24) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN . primitives RPAREN SEMICOLON
+    (27) primitives -> . primitives COMMA primitive
+    (28) primitives -> . primitive
+    (29) primitive -> . NUMBER
+    (30) primitive -> . DECIMALES
+    (31) primitive -> . STRING
 
-    CREATE          reduce using rule 23 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
-    USE             reduce using rule 23 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
-    INSERT          reduce using rule 23 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
-    $end            reduce using rule 23 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    NUMBER          shift and go to state 71
+    DECIMALES       shift and go to state 72
+    STRING          shift and go to state 73
 
+    primitives                     shift and go to state 69
+    primitive                      shift and go to state 70
 
 state 66
 
-    (26) primitives -> primitives COMMA primitive .
+    (32) alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .
 
-    RPAREN          reduce using rule 26 (primitives -> primitives COMMA primitive .)
-    COMMA           reduce using rule 26 (primitives -> primitives COMMA primitive .)
+    CREATE          reduce using rule 32 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    USE             reduce using rule 32 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    INSERT          reduce using rule 32 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    ALTER           reduce using rule 32 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    $end            reduce using rule 32 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+
+
+state 67
+
+    (22) attribute -> REFERENCE ID LPAREN . ID RPAREN
+
+    ID              shift and go to state 74
+
+
+state 68
+
+    (16) type -> NVARCHAR LPAREN NUMBER RPAREN .
+
+    PRIMARY         reduce using rule 16 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+    REFERENCE       reduce using rule 16 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+    NOT             reduce using rule 16 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+    RPAREN          reduce using rule 16 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+    COMMA           reduce using rule 16 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+    SEMICOLON       reduce using rule 16 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+
+
+state 69
+
+    (24) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives . RPAREN SEMICOLON
+    (27) primitives -> primitives . COMMA primitive
+
+    RPAREN          shift and go to state 75
+    COMMA           shift and go to state 76
+
+
+state 70
+
+    (28) primitives -> primitive .
+
+    RPAREN          reduce using rule 28 (primitives -> primitive .)
+    COMMA           reduce using rule 28 (primitives -> primitive .)
+
+
+state 71
+
+    (29) primitive -> NUMBER .
+
+    RPAREN          reduce using rule 29 (primitive -> NUMBER .)
+    COMMA           reduce using rule 29 (primitive -> NUMBER .)
+
+
+state 72
+
+    (30) primitive -> DECIMALES .
+
+    RPAREN          reduce using rule 30 (primitive -> DECIMALES .)
+    COMMA           reduce using rule 30 (primitive -> DECIMALES .)
+
+
+state 73
+
+    (31) primitive -> STRING .
+
+    RPAREN          reduce using rule 31 (primitive -> STRING .)
+    COMMA           reduce using rule 31 (primitive -> STRING .)
+
+
+state 74
+
+    (22) attribute -> REFERENCE ID LPAREN ID . RPAREN
+
+    RPAREN          shift and go to state 77
+
+
+state 75
+
+    (24) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 78
+
+
+state 76
+
+    (27) primitives -> primitives COMMA . primitive
+    (29) primitive -> . NUMBER
+    (30) primitive -> . DECIMALES
+    (31) primitive -> . STRING
+
+    NUMBER          shift and go to state 71
+    DECIMALES       shift and go to state 72
+    STRING          shift and go to state 73
+
+    primitive                      shift and go to state 79
+
+state 77
+
+    (22) attribute -> REFERENCE ID LPAREN ID RPAREN .
+
+    PRIMARY         reduce using rule 22 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
+    REFERENCE       reduce using rule 22 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
+    NOT             reduce using rule 22 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
+    RPAREN          reduce using rule 22 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
+    COMMA           reduce using rule 22 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
+
+
+state 78
+
+    (24) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .
+
+    CREATE          reduce using rule 24 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    USE             reduce using rule 24 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    INSERT          reduce using rule 24 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    ALTER           reduce using rule 24 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    $end            reduce using rule 24 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+
+
+state 79
+
+    (27) primitives -> primitives COMMA primitive .
+
+    RPAREN          reduce using rule 27 (primitives -> primitives COMMA primitive .)
+    COMMA           reduce using rule 27 (primitives -> primitives COMMA primitive .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for PRIMARY in state 28 resolved as shift
-WARNING: shift/reduce conflict for REFERENCE in state 28 resolved as shift
-WARNING: shift/reduce conflict for NOT in state 28 resolved as shift
+WARNING: shift/reduce conflict for PRIMARY in state 36 resolved as shift
+WARNING: shift/reduce conflict for REFERENCE in state 36 resolved as shift
+WARNING: shift/reduce conflict for NOT in state 36 resolved as shift
