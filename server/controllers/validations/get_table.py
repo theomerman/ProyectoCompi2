@@ -8,7 +8,7 @@ def get_table(table_name, _database = None) -> tuple[ET.Element, str]:
         if err is not None:
             return None, err
     
-    for table in database:
+    for table in database.find("tables"):
         if table.tag == table_name:
             return table, None
     return None, f"Error: Table {table_name} does not exist"

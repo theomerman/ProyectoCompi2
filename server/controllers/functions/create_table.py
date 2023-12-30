@@ -17,7 +17,7 @@ def create_table(_table: str, columns: list) -> tuple:
         return None, f"Table {_table} already exists" 
 
 
-    table = ET.SubElement(database, _table)
+    table = ET.SubElement(database.find("tables"), _table)
     tmp_columns = []
 
     for column in columns:

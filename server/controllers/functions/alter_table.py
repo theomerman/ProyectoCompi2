@@ -35,7 +35,7 @@ def drop_column(table_name, column_name) -> tuple:
         return None, err
     if table.find(column_name) is None:
         return None, f"Error: Column {column_name} does not exists in table {table_name}"
-    for _table in database:
+    for _table in database.find('tables'):
         if _table.tag == table_name:
             continue
         for _column in _table:

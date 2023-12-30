@@ -2,7 +2,6 @@ import datetime
 from controllers.validations.get_table import get_table
 from controllers.validations.get_database import get_database
 from controllers.validations.write_to_xml import write_to_xml
-from controllers.validations.is_duplicated import is_duplicated
 from controllers.validations.is_duplicated import is_duplicated_pk
 from xml.etree import ElementTree as ET
 
@@ -22,7 +21,7 @@ def insert(table_name, columns, values):
     if err is not None:
         return None, err
 
-    database.find(table_name).find("data_rows").append(item) 
+    database.find("tables").find(table_name).find("data_rows").append(item) 
 
     success, err = write_to_xml(database)
     if err is not None:
@@ -59,7 +58,9 @@ def get_dictionary (table, columns, values):
                 return None, f"Error: Column {column.tag} cannot be null"
             else:
                 dictionary[column.tag] = "null"
-
+    _, err = validate_types(table, dictionary)
+    if err is not None:
+        return None, err
     return dictionary, None
 
 def new_item(dictionary):
@@ -92,6 +93,6 @@ def validate_types(table: ET.Element ,dictionary):
                 try:
                     datetime.datetime.strptime(dictionary[key].replace("'",""), '%Y-%m-%d')
                 except:
-                    return None, f"Error: Value {dictionary[key]} is not a date"
+                    return None, f"Error: Value {dictionary[key]} is not a date in format YYYY-MM-DD"
     return True, None
         # print(table.find(key),table.find(key).attrib["type"],dictionary[key])

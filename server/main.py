@@ -28,8 +28,8 @@ ididentificacion int PRIMARY KEY,
 codigocliente nvarchar(15) PRIMARY KEY REFERENCE tbcliente (codigocliente),
 identificacion nvarchar(20) NOT NULL,
 ididentificaciontipo int REFERENCE tbidentificaciontipo (ididentificaciontipo));
-
 INSERT INTO tbidentificaciontipo (ididentificaciontipo,identificaciontipo) VALUES(1,'DPI');
+
 INSERT INTO tbidentificaciontipo (ididentificaciontipo,identificaciontipo) VALUES(2,'NIT');
 INSERT INTO tbidentificaciontipo (ididentificaciontipo,identificaciontipo) VALUES(3,'PASAPORTE');
 
@@ -131,6 +131,7 @@ insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoAct
 alturamora,limite,idcalificacion) values (2,'2023-11-30',1,2,2993.50,0,1250.75,0,0,15000,1);
 insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoActual,SaldoMora,ValorCuota,DiasMora,
 alturamora,limite,idcalificacion) values (2,'2023-12-31',1,2,1742.75,0,1250.75,0,0,15000,1);
+
 
 ALTER TABLE tbproducto ADD COLUMN tasa2 nvarchar(50);
 alter table tbproducto drop column tasa2;

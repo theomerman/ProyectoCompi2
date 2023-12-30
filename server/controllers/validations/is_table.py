@@ -7,7 +7,7 @@ def is_table(name: str) -> tuple:
     database, err = get_database()
     if err is not None:
         return None, err
-    for table in database:
+    for table in database.find("tables"):
         if table.tag == name:
             return True, None
     return False, None
