@@ -9,7 +9,7 @@ def insert(table_name, columns, values):
     table, err = get_table(table_name)
     if err is not None:
         return None, err
-    dictionary, err = get_dictionary(table, columns, values)
+    dictionary, err = get_dictionary(table.find('columns'), columns, values)
     if err is not None:
         return None, err
     item = new_item(dictionary)
@@ -51,8 +51,6 @@ def get_dictionary (table, columns, values):
             return None, f"Error: Column {column} does not exist in table"
     
     for column in table:
-        if column.tag == "data_rows":
-            continue
         if column.tag not in dictionary:
             if column.attrib["nullable"] == "False":
                 return None, f"Error: Column {column.tag} cannot be null"
@@ -80,15 +78,13 @@ def validate_types(table: ET.Element ,dictionary):
         except:
 
             if table.find(key).attrib["type"] == "int":
-                try:
-                    int(dictionary[key])
-                except:
+                if type(dictionary[key]) is not int:
                     return None, f"Error: Value {dictionary[key]} is not an integer"
+                
             elif table.find(key).attrib["type"] == "decimal":
-                try:
-                    float(dictionary[key])
-                except:
+                if type(dictionary[key]) is not float and type(dictionary[key]) is not int:
                     return None, f"Error: Value {dictionary[key]} is not a decimal"
+
             elif table.find(key).attrib["type"] == "date":
                 try:
                     datetime.datetime.strptime(dictionary[key].replace("'",""), '%Y-%m-%d')

@@ -17,9 +17,7 @@ def is_duplicated(table_name, column_name, value) -> tuple[bool, str]:
 
 def is_duplicated_pk(table: ET.Element, new_item: ET.Element) -> bool:
     cols = []
-    for column in table:
-        if column.tag == "data_rows":
-            continue
+    for column in table.find("columns"):
         if column.attrib["primary_key"] == "True":
             cols.append(column.tag)
     items = table.find("data_rows")

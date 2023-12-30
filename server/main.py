@@ -3,7 +3,7 @@ import controllers.compiler.parser as parser
 
 
 parser.parser.parse(
-    '''
+'''
 CREATE DATA BASE tbbanco;  
 USE tbbanco;
 CREATE TABLE tbestado (
@@ -28,8 +28,8 @@ ididentificacion int PRIMARY KEY,
 codigocliente nvarchar(15) PRIMARY KEY REFERENCE tbcliente (codigocliente),
 identificacion nvarchar(20) NOT NULL,
 ididentificaciontipo int REFERENCE tbidentificaciontipo (ididentificaciontipo));
-INSERT INTO tbidentificaciontipo (ididentificaciontipo,identificaciontipo) VALUES(1,'DPI');
 
+INSERT INTO tbidentificaciontipo (ididentificaciontipo,identificaciontipo) VALUES(1,'DPI');
 INSERT INTO tbidentificaciontipo (ididentificaciontipo,identificaciontipo) VALUES(2,'NIT');
 INSERT INTO tbidentificaciontipo (ididentificaciontipo,identificaciontipo) VALUES(3,'PASAPORTE');
 
@@ -58,7 +58,6 @@ idestado int not null);
 INSERT INTO tbproducto (idproducto,producto,idestado) VALUES(1,'Credito Fiduiciario',1);
 INSERT INTO tbproducto (idproducto,producto,idestado) VALUES(2,'Credito Hipotecario',1);
 INSERT INTO tbproducto (idproducto,producto,idestado) VALUES(3,'Tarjeta de Credito Oro',1);
-
 
 CREATE TABLE tbcredito (credito int PRIMARY KEY,nocuenta nvarchar(20) not null,
 idcliente int not null,fechaultimocorte date not null,idproducto int REFERENCE tbproducto (idproducto));
@@ -133,9 +132,14 @@ insert into tbcreditoSaldo (credito,fechacorte,idmoneda,idcreditoestado,SaldoAct
 alturamora,limite,idcalificacion) values (2,'2023-12-31',1,2,1742.75,0,1250.75,0,0,15000,1);
 
 
+
 ALTER TABLE tbproducto ADD COLUMN tasa2 nvarchar(50);
 alter table tbproducto drop column tasa2;
 '''
+
+
+
+#'''
 
 
 
