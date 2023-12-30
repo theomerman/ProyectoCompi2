@@ -3,7 +3,7 @@ import ply.yacc as yacc
 from controllers.functions import create_database
 # Get the token map from the lexer.  This is required.
 from controllers.compiler.lexer import tokens 
-from controllers.functions import create_database,use_database, create_table, insert
+from controllers.functions import create_database,use_database, create_table, insert, alter_table
 from controllers.objects.column import Column
 
 
@@ -189,7 +189,18 @@ def p_alter_table(p):
     alter_table : ALTER TABLE ID ADD COLUMN ID type SEMICOLON
                 | ALTER TABLE ID DROP COLUMN ID SEMICOLON
     '''
-    
+    if p[4] == 'add':
+        success, err = alter_table.add_column(p[3], p[6], p[7])
+        if err:
+            print(err)
+        else:
+            print(success)
+    elif p[4] == 'drop':
+        success, err = alter_table.drop_column(p[3], p[6])
+        if err:
+            print(err)
+        else:
+            print(success)
 
 # empty
 def p_empty(p):

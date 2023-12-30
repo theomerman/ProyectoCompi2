@@ -59,6 +59,13 @@ reserved = {
     'from': 'FROM',
     'where': 'WHERE',
 
+    'concatena': 'CONCATENA',
+    'substraer': 'SUBSTRAER',
+    'hoy': 'HOY',
+    'contar': 'CONTAR',
+    'suma': 'SUMA',
+    'cast': 'CAST',
+
 }
 # Tokens
 t_PLUS = r'\+'
