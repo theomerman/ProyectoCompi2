@@ -2,31 +2,13 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    AND
+    AND_WORD
     AT
     CAST
     COMPARE
-    CONCATENA
-    CONTAR
-    DIFFERENT
-    DIVIDE
-    EQUAL
     FROM
-    GREATER
-    GREATER_EQUAL
-    HOY
-    LESS
-    LESS_EQUAL
-    MINUS
     NOT_EQUAL
-    NOT_SYMBOL
-    OR
-    PERIOD
-    PLUS
     SELECT
-    SUBSTRAER
-    SUMA
-    TIMES
     WHERE
 
 Grammar
@@ -39,110 +21,157 @@ Rule 4     statement -> use_database
 Rule 5     statement -> create_table
 Rule 6     statement -> insert_into
 Rule 7     statement -> alter_table
-Rule 8     create_database -> CREATE DATA BASE ID SEMICOLON
-Rule 9     use_database -> USE ID SEMICOLON
-Rule 10    create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
-Rule 11    columns -> columns COMMA column
-Rule 12    columns -> column
-Rule 13    column -> ID type attributes
-Rule 14    type -> INT
-Rule 15    type -> DATE
-Rule 16    type -> NVARCHAR LPAREN NUMBER RPAREN
-Rule 17    type -> DECIMAL
-Rule 18    attributes -> attributes attribute
-Rule 19    attributes -> attribute
-Rule 20    attributes -> empty
-Rule 21    attribute -> PRIMARY KEY
-Rule 22    attribute -> REFERENCE ID LPAREN ID RPAREN
-Rule 23    attribute -> NOT NULL
-Rule 24    insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
-Rule 25    ids -> ids COMMA ID
-Rule 26    ids -> ID
-Rule 27    primitives -> primitives COMMA primitive
-Rule 28    primitives -> primitive
-Rule 29    primitive -> NUMBER
-Rule 30    primitive -> DECIMALES
-Rule 31    primitive -> STRING
-Rule 32    alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON
-Rule 33    alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON
-Rule 34    empty -> <empty>
+Rule 8     statement -> expression SEMICOLON
+Rule 9     create_database -> CREATE DATA BASE ID SEMICOLON
+Rule 10    use_database -> USE ID SEMICOLON
+Rule 11    create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
+Rule 12    columns -> columns COMMA column
+Rule 13    columns -> column
+Rule 14    column -> ID type attributes
+Rule 15    type -> INT
+Rule 16    type -> DATE
+Rule 17    type -> NVARCHAR LPAREN NUMBER RPAREN
+Rule 18    type -> DECIMAL
+Rule 19    attributes -> attributes attribute
+Rule 20    attributes -> attribute
+Rule 21    attributes -> empty
+Rule 22    attribute -> PRIMARY KEY
+Rule 23    attribute -> REFERENCE ID LPAREN ID RPAREN
+Rule 24    attribute -> NOT NULL
+Rule 25    insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+Rule 26    ids -> ids COMMA ID
+Rule 27    ids -> ID
+Rule 28    primitives -> primitives COMMA primitive
+Rule 29    primitives -> primitive
+Rule 30    primitive -> NUMBER
+Rule 31    primitive -> DECIMALES
+Rule 32    primitive -> STRING
+Rule 33    alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON
+Rule 34    alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON
+Rule 35    expression -> expression PLUS expression
+Rule 36    expression -> expression MINUS expression
+Rule 37    expression -> expression TIMES expression
+Rule 38    expression -> expression DIVIDE expression
+Rule 39    expression -> expression EQUAL expression
+Rule 40    expression -> expression DIFFERENT expression
+Rule 41    expression -> expression GREATER expression
+Rule 42    expression -> expression LESS expression
+Rule 43    expression -> expression GREATER_EQUAL expression
+Rule 44    expression -> expression LESS_EQUAL expression
+Rule 45    expression -> expression AND expression
+Rule 46    expression -> expression OR expression
+Rule 47    expression -> expression NOT_SYMBOL expression
+Rule 48    expression -> MINUS expression
+Rule 49    expression -> LPAREN expression RPAREN
+Rule 50    expression -> NUMBER
+Rule 51    expression -> DECIMALES
+Rule 52    expression -> STRING
+Rule 53    expression -> ID PERIOD ID
+Rule 54    expression -> ID
+Rule 55    concatena -> CONCATENA LPAREN concatena_parameters RPAREN
+Rule 56    concatena_parameters -> concatena_parameters COMMA parameters_one
+Rule 57    concatena_parameters -> parameters_one
+Rule 58    parameters_one -> STRING
+Rule 59    parameters_one -> ID PERIOD ID
+Rule 60    parameters_one -> ID
+Rule 61    substraer -> SUBSTRAER LPAREN parameters_one COMMA NUMBER COMMA NUMBER RPAREN
+Rule 62    hoy -> HOY LPAREN RPAREN
+Rule 63    contar -> CONTAR LPAREN contar_parameters RPAREN
+Rule 64    contar_parameters -> TIMES
+Rule 65    contar_parameters -> ID PERIOD ID
+Rule 66    contar_parameters -> ID
+Rule 67    suma -> SUMA LPAREN parameters_two RPAREN
+Rule 68    parameters_two -> ID PERIOD ID
+Rule 69    parameters_two -> ID
+Rule 70    empty -> <empty>
 
 Terminals, with rules where they appear
 
-ADD                  : 32
-ALTER                : 32 33
-AND                  : 
+ADD                  : 33
+ALTER                : 33 34
+AND                  : 45
+AND_WORD             : 
 AT                   : 
-BASE                 : 8
+BASE                 : 9
 CAST                 : 
-COLUMN               : 32 33
-COMMA                : 11 25 27
+COLUMN               : 33 34
+COMMA                : 12 26 28 56 61 61
 COMPARE              : 
-CONCATENA            : 
-CONTAR               : 
-CREATE               : 8 10
-DATA                 : 8
-DATE                 : 15
-DECIMAL              : 17
-DECIMALES            : 30
-DIFFERENT            : 
-DIVIDE               : 
-DROP                 : 33
-EQUAL                : 
+CONCATENA            : 55
+CONTAR               : 63
+CREATE               : 9 11
+DATA                 : 9
+DATE                 : 16
+DECIMAL              : 18
+DECIMALES            : 31 51
+DIFFERENT            : 40
+DIVIDE               : 38
+DROP                 : 34
+EQUAL                : 39
 FROM                 : 
-GREATER              : 
-GREATER_EQUAL        : 
-HOY                  : 
-ID                   : 8 9 10 13 22 22 24 25 26 32 32 33 33
-INSERT               : 24
-INT                  : 14
-INTO                 : 24
-KEY                  : 21
-LESS                 : 
-LESS_EQUAL           : 
-LPAREN               : 10 16 22 24 24
-MINUS                : 
-NOT                  : 23
+GREATER              : 41
+GREATER_EQUAL        : 43
+HOY                  : 62
+ID                   : 9 10 11 14 23 23 25 26 27 33 33 34 34 53 53 54 59 59 60 65 65 66 68 68 69
+INSERT               : 25
+INT                  : 15
+INTO                 : 25
+KEY                  : 22
+LESS                 : 42
+LESS_EQUAL           : 44
+LPAREN               : 11 17 23 25 25 49 55 61 62 63 67
+MINUS                : 36 48
+NOT                  : 24
 NOT_EQUAL            : 
-NOT_SYMBOL           : 
-NULL                 : 23
-NUMBER               : 16 29
-NVARCHAR             : 16
-OR                   : 
-PERIOD               : 
-PLUS                 : 
-PRIMARY              : 21
-REFERENCE            : 22
-RPAREN               : 10 16 22 24 24
+NOT_SYMBOL           : 47
+NULL                 : 24
+NUMBER               : 17 30 50 61 61
+NVARCHAR             : 17
+OR                   : 46
+PERIOD               : 53 59 65 68
+PLUS                 : 35
+PRIMARY              : 22
+REFERENCE            : 23
+RPAREN               : 11 17 23 25 25 49 55 61 62 63 67
 SELECT               : 
-SEMICOLON            : 8 9 10 24 32 33
-STRING               : 31
-SUBSTRAER            : 
-SUMA                 : 
-TABLE                : 10 32 33
-TIMES                : 
-USE                  : 9
-VALUES               : 24
+SEMICOLON            : 8 9 10 11 25 33 34
+STRING               : 32 52 58
+SUBSTRAER            : 61
+SUMA                 : 67
+TABLE                : 11 33 34
+TIMES                : 37 64
+USE                  : 10
+VALUES               : 25
 WHERE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
 alter_table          : 7
-attribute            : 18 19
-attributes           : 13 18
-column               : 11 12
-columns              : 10 11
+attribute            : 19 20
+attributes           : 14 19
+column               : 12 13
+columns              : 11 12
+concatena            : 
+concatena_parameters : 55 56
+contar               : 
+contar_parameters    : 63
 create_database      : 3
 create_table         : 5
-empty                : 20
-ids                  : 24 25
+empty                : 21
+expression           : 8 35 35 36 36 37 37 38 38 39 39 40 40 41 41 42 42 43 43 44 44 45 45 46 46 47 47 48 49
+hoy                  : 
+ids                  : 25 26
 init                 : 1 0
 insert_into          : 6
-primitive            : 27 28
-primitives           : 24 27
+parameters_one       : 56 57 61
+parameters_two       : 67
+primitive            : 28 29
+primitives           : 25 28
 statement            : 1 2
-type                 : 13 32
+substraer            : 
+suma                 : 
+type                 : 14 33
 use_database         : 4
 
 Parsing method: LALR
@@ -157,17 +186,44 @@ state 0
     (5) statement -> . create_table
     (6) statement -> . insert_into
     (7) statement -> . alter_table
-    (8) create_database -> . CREATE DATA BASE ID SEMICOLON
-    (9) use_database -> . USE ID SEMICOLON
-    (10) create_table -> . CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
-    (24) insert_into -> . INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
-    (32) alter_table -> . ALTER TABLE ID ADD COLUMN ID type SEMICOLON
-    (33) alter_table -> . ALTER TABLE ID DROP COLUMN ID SEMICOLON
+    (8) statement -> . expression SEMICOLON
+    (9) create_database -> . CREATE DATA BASE ID SEMICOLON
+    (10) use_database -> . USE ID SEMICOLON
+    (11) create_table -> . CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
+    (25) insert_into -> . INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (33) alter_table -> . ALTER TABLE ID ADD COLUMN ID type SEMICOLON
+    (34) alter_table -> . ALTER TABLE ID DROP COLUMN ID SEMICOLON
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    CREATE          shift and go to state 8
-    USE             shift and go to state 9
-    INSERT          shift and go to state 10
-    ALTER           shift and go to state 11
+    CREATE          shift and go to state 9
+    USE             shift and go to state 11
+    INSERT          shift and go to state 13
+    ALTER           shift and go to state 14
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
     init                           shift and go to state 1
     statement                      shift and go to state 2
@@ -176,6 +232,7 @@ state 0
     create_table                   shift and go to state 5
     insert_into                    shift and go to state 6
     alter_table                    shift and go to state 7
+    expression                     shift and go to state 8
 
 state 1
 
@@ -194,26 +251,54 @@ state 2
     (5) statement -> . create_table
     (6) statement -> . insert_into
     (7) statement -> . alter_table
-    (8) create_database -> . CREATE DATA BASE ID SEMICOLON
-    (9) use_database -> . USE ID SEMICOLON
-    (10) create_table -> . CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
-    (24) insert_into -> . INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
-    (32) alter_table -> . ALTER TABLE ID ADD COLUMN ID type SEMICOLON
-    (33) alter_table -> . ALTER TABLE ID DROP COLUMN ID SEMICOLON
+    (8) statement -> . expression SEMICOLON
+    (9) create_database -> . CREATE DATA BASE ID SEMICOLON
+    (10) use_database -> . USE ID SEMICOLON
+    (11) create_table -> . CREATE TABLE ID LPAREN columns RPAREN SEMICOLON
+    (25) insert_into -> . INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (33) alter_table -> . ALTER TABLE ID ADD COLUMN ID type SEMICOLON
+    (34) alter_table -> . ALTER TABLE ID DROP COLUMN ID SEMICOLON
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
     $end            reduce using rule 2 (init -> statement .)
-    CREATE          shift and go to state 8
-    USE             shift and go to state 9
-    INSERT          shift and go to state 10
-    ALTER           shift and go to state 11
+    CREATE          shift and go to state 9
+    USE             shift and go to state 11
+    INSERT          shift and go to state 13
+    ALTER           shift and go to state 14
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
     statement                      shift and go to state 2
-    init                           shift and go to state 12
+    init                           shift and go to state 19
     create_database                shift and go to state 3
     use_database                   shift and go to state 4
     create_table                   shift and go to state 5
     insert_into                    shift and go to state 6
     alter_table                    shift and go to state 7
+    expression                     shift and go to state 8
 
 state 3
 
@@ -223,6 +308,12 @@ state 3
     USE             reduce using rule 3 (statement -> create_database .)
     INSERT          reduce using rule 3 (statement -> create_database .)
     ALTER           reduce using rule 3 (statement -> create_database .)
+    MINUS           reduce using rule 3 (statement -> create_database .)
+    LPAREN          reduce using rule 3 (statement -> create_database .)
+    NUMBER          reduce using rule 3 (statement -> create_database .)
+    DECIMALES       reduce using rule 3 (statement -> create_database .)
+    STRING          reduce using rule 3 (statement -> create_database .)
+    ID              reduce using rule 3 (statement -> create_database .)
     $end            reduce using rule 3 (statement -> create_database .)
 
 
@@ -234,6 +325,12 @@ state 4
     USE             reduce using rule 4 (statement -> use_database .)
     INSERT          reduce using rule 4 (statement -> use_database .)
     ALTER           reduce using rule 4 (statement -> use_database .)
+    MINUS           reduce using rule 4 (statement -> use_database .)
+    LPAREN          reduce using rule 4 (statement -> use_database .)
+    NUMBER          reduce using rule 4 (statement -> use_database .)
+    DECIMALES       reduce using rule 4 (statement -> use_database .)
+    STRING          reduce using rule 4 (statement -> use_database .)
+    ID              reduce using rule 4 (statement -> use_database .)
     $end            reduce using rule 4 (statement -> use_database .)
 
 
@@ -245,6 +342,12 @@ state 5
     USE             reduce using rule 5 (statement -> create_table .)
     INSERT          reduce using rule 5 (statement -> create_table .)
     ALTER           reduce using rule 5 (statement -> create_table .)
+    MINUS           reduce using rule 5 (statement -> create_table .)
+    LPAREN          reduce using rule 5 (statement -> create_table .)
+    NUMBER          reduce using rule 5 (statement -> create_table .)
+    DECIMALES       reduce using rule 5 (statement -> create_table .)
+    STRING          reduce using rule 5 (statement -> create_table .)
+    ID              reduce using rule 5 (statement -> create_table .)
     $end            reduce using rule 5 (statement -> create_table .)
 
 
@@ -256,6 +359,12 @@ state 6
     USE             reduce using rule 6 (statement -> insert_into .)
     INSERT          reduce using rule 6 (statement -> insert_into .)
     ALTER           reduce using rule 6 (statement -> insert_into .)
+    MINUS           reduce using rule 6 (statement -> insert_into .)
+    LPAREN          reduce using rule 6 (statement -> insert_into .)
+    NUMBER          reduce using rule 6 (statement -> insert_into .)
+    DECIMALES       reduce using rule 6 (statement -> insert_into .)
+    STRING          reduce using rule 6 (statement -> insert_into .)
+    ID              reduce using rule 6 (statement -> insert_into .)
     $end            reduce using rule 6 (statement -> insert_into .)
 
 
@@ -267,675 +376,2128 @@ state 7
     USE             reduce using rule 7 (statement -> alter_table .)
     INSERT          reduce using rule 7 (statement -> alter_table .)
     ALTER           reduce using rule 7 (statement -> alter_table .)
+    MINUS           reduce using rule 7 (statement -> alter_table .)
+    LPAREN          reduce using rule 7 (statement -> alter_table .)
+    NUMBER          reduce using rule 7 (statement -> alter_table .)
+    DECIMALES       reduce using rule 7 (statement -> alter_table .)
+    STRING          reduce using rule 7 (statement -> alter_table .)
+    ID              reduce using rule 7 (statement -> alter_table .)
     $end            reduce using rule 7 (statement -> alter_table .)
 
 
 state 8
 
-    (8) create_database -> CREATE . DATA BASE ID SEMICOLON
-    (10) create_table -> CREATE . TABLE ID LPAREN columns RPAREN SEMICOLON
+    (8) statement -> expression . SEMICOLON
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
 
-    DATA            shift and go to state 13
-    TABLE           shift and go to state 14
+    SEMICOLON       shift and go to state 20
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+    TIMES           shift and go to state 23
+    DIVIDE          shift and go to state 24
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+    NOT_SYMBOL      shift and go to state 33
 
 
 state 9
 
-    (9) use_database -> USE . ID SEMICOLON
+    (9) create_database -> CREATE . DATA BASE ID SEMICOLON
+    (11) create_table -> CREATE . TABLE ID LPAREN columns RPAREN SEMICOLON
 
-    ID              shift and go to state 15
+    DATA            shift and go to state 34
+    TABLE           shift and go to state 35
 
 
 state 10
 
-    (24) insert_into -> INSERT . INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (53) expression -> ID . PERIOD ID
+    (54) expression -> ID .
 
-    INTO            shift and go to state 16
+    PERIOD          shift and go to state 36
+    SEMICOLON       reduce using rule 54 (expression -> ID .)
+    PLUS            reduce using rule 54 (expression -> ID .)
+    MINUS           reduce using rule 54 (expression -> ID .)
+    TIMES           reduce using rule 54 (expression -> ID .)
+    DIVIDE          reduce using rule 54 (expression -> ID .)
+    EQUAL           reduce using rule 54 (expression -> ID .)
+    DIFFERENT       reduce using rule 54 (expression -> ID .)
+    GREATER         reduce using rule 54 (expression -> ID .)
+    LESS            reduce using rule 54 (expression -> ID .)
+    GREATER_EQUAL   reduce using rule 54 (expression -> ID .)
+    LESS_EQUAL      reduce using rule 54 (expression -> ID .)
+    AND             reduce using rule 54 (expression -> ID .)
+    OR              reduce using rule 54 (expression -> ID .)
+    NOT_SYMBOL      reduce using rule 54 (expression -> ID .)
+    RPAREN          reduce using rule 54 (expression -> ID .)
 
 
 state 11
 
-    (32) alter_table -> ALTER . TABLE ID ADD COLUMN ID type SEMICOLON
-    (33) alter_table -> ALTER . TABLE ID DROP COLUMN ID SEMICOLON
+    (10) use_database -> USE . ID SEMICOLON
 
-    TABLE           shift and go to state 17
+    ID              shift and go to state 37
 
 
 state 12
+
+    (49) expression -> LPAREN . expression RPAREN
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
+
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
+
+    expression                     shift and go to state 38
+
+state 13
+
+    (25) insert_into -> INSERT . INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+
+    INTO            shift and go to state 39
+
+
+state 14
+
+    (33) alter_table -> ALTER . TABLE ID ADD COLUMN ID type SEMICOLON
+    (34) alter_table -> ALTER . TABLE ID DROP COLUMN ID SEMICOLON
+
+    TABLE           shift and go to state 40
+
+
+state 15
+
+    (48) expression -> MINUS . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
+
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
+
+    expression                     shift and go to state 41
+
+state 16
+
+    (50) expression -> NUMBER .
+
+    SEMICOLON       reduce using rule 50 (expression -> NUMBER .)
+    PLUS            reduce using rule 50 (expression -> NUMBER .)
+    MINUS           reduce using rule 50 (expression -> NUMBER .)
+    TIMES           reduce using rule 50 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 50 (expression -> NUMBER .)
+    EQUAL           reduce using rule 50 (expression -> NUMBER .)
+    DIFFERENT       reduce using rule 50 (expression -> NUMBER .)
+    GREATER         reduce using rule 50 (expression -> NUMBER .)
+    LESS            reduce using rule 50 (expression -> NUMBER .)
+    GREATER_EQUAL   reduce using rule 50 (expression -> NUMBER .)
+    LESS_EQUAL      reduce using rule 50 (expression -> NUMBER .)
+    AND             reduce using rule 50 (expression -> NUMBER .)
+    OR              reduce using rule 50 (expression -> NUMBER .)
+    NOT_SYMBOL      reduce using rule 50 (expression -> NUMBER .)
+    RPAREN          reduce using rule 50 (expression -> NUMBER .)
+
+
+state 17
+
+    (51) expression -> DECIMALES .
+
+    SEMICOLON       reduce using rule 51 (expression -> DECIMALES .)
+    PLUS            reduce using rule 51 (expression -> DECIMALES .)
+    MINUS           reduce using rule 51 (expression -> DECIMALES .)
+    TIMES           reduce using rule 51 (expression -> DECIMALES .)
+    DIVIDE          reduce using rule 51 (expression -> DECIMALES .)
+    EQUAL           reduce using rule 51 (expression -> DECIMALES .)
+    DIFFERENT       reduce using rule 51 (expression -> DECIMALES .)
+    GREATER         reduce using rule 51 (expression -> DECIMALES .)
+    LESS            reduce using rule 51 (expression -> DECIMALES .)
+    GREATER_EQUAL   reduce using rule 51 (expression -> DECIMALES .)
+    LESS_EQUAL      reduce using rule 51 (expression -> DECIMALES .)
+    AND             reduce using rule 51 (expression -> DECIMALES .)
+    OR              reduce using rule 51 (expression -> DECIMALES .)
+    NOT_SYMBOL      reduce using rule 51 (expression -> DECIMALES .)
+    RPAREN          reduce using rule 51 (expression -> DECIMALES .)
+
+
+state 18
+
+    (52) expression -> STRING .
+
+    SEMICOLON       reduce using rule 52 (expression -> STRING .)
+    PLUS            reduce using rule 52 (expression -> STRING .)
+    MINUS           reduce using rule 52 (expression -> STRING .)
+    TIMES           reduce using rule 52 (expression -> STRING .)
+    DIVIDE          reduce using rule 52 (expression -> STRING .)
+    EQUAL           reduce using rule 52 (expression -> STRING .)
+    DIFFERENT       reduce using rule 52 (expression -> STRING .)
+    GREATER         reduce using rule 52 (expression -> STRING .)
+    LESS            reduce using rule 52 (expression -> STRING .)
+    GREATER_EQUAL   reduce using rule 52 (expression -> STRING .)
+    LESS_EQUAL      reduce using rule 52 (expression -> STRING .)
+    AND             reduce using rule 52 (expression -> STRING .)
+    OR              reduce using rule 52 (expression -> STRING .)
+    NOT_SYMBOL      reduce using rule 52 (expression -> STRING .)
+    RPAREN          reduce using rule 52 (expression -> STRING .)
+
+
+state 19
 
     (1) init -> statement init .
 
     $end            reduce using rule 1 (init -> statement init .)
 
 
-state 13
-
-    (8) create_database -> CREATE DATA . BASE ID SEMICOLON
-
-    BASE            shift and go to state 18
-
-
-state 14
-
-    (10) create_table -> CREATE TABLE . ID LPAREN columns RPAREN SEMICOLON
-
-    ID              shift and go to state 19
-
-
-state 15
-
-    (9) use_database -> USE ID . SEMICOLON
-
-    SEMICOLON       shift and go to state 20
-
-
-state 16
-
-    (24) insert_into -> INSERT INTO . ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
-
-    ID              shift and go to state 21
-
-
-state 17
-
-    (32) alter_table -> ALTER TABLE . ID ADD COLUMN ID type SEMICOLON
-    (33) alter_table -> ALTER TABLE . ID DROP COLUMN ID SEMICOLON
-
-    ID              shift and go to state 22
-
-
-state 18
-
-    (8) create_database -> CREATE DATA BASE . ID SEMICOLON
-
-    ID              shift and go to state 23
-
-
-state 19
-
-    (10) create_table -> CREATE TABLE ID . LPAREN columns RPAREN SEMICOLON
-
-    LPAREN          shift and go to state 24
-
-
 state 20
 
-    (9) use_database -> USE ID SEMICOLON .
+    (8) statement -> expression SEMICOLON .
 
-    CREATE          reduce using rule 9 (use_database -> USE ID SEMICOLON .)
-    USE             reduce using rule 9 (use_database -> USE ID SEMICOLON .)
-    INSERT          reduce using rule 9 (use_database -> USE ID SEMICOLON .)
-    ALTER           reduce using rule 9 (use_database -> USE ID SEMICOLON .)
-    $end            reduce using rule 9 (use_database -> USE ID SEMICOLON .)
+    CREATE          reduce using rule 8 (statement -> expression SEMICOLON .)
+    USE             reduce using rule 8 (statement -> expression SEMICOLON .)
+    INSERT          reduce using rule 8 (statement -> expression SEMICOLON .)
+    ALTER           reduce using rule 8 (statement -> expression SEMICOLON .)
+    MINUS           reduce using rule 8 (statement -> expression SEMICOLON .)
+    LPAREN          reduce using rule 8 (statement -> expression SEMICOLON .)
+    NUMBER          reduce using rule 8 (statement -> expression SEMICOLON .)
+    DECIMALES       reduce using rule 8 (statement -> expression SEMICOLON .)
+    STRING          reduce using rule 8 (statement -> expression SEMICOLON .)
+    ID              reduce using rule 8 (statement -> expression SEMICOLON .)
+    $end            reduce using rule 8 (statement -> expression SEMICOLON .)
 
 
 state 21
 
-    (24) insert_into -> INSERT INTO ID . LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (35) expression -> expression PLUS . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    LPAREN          shift and go to state 25
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
+    expression                     shift and go to state 42
 
 state 22
 
-    (32) alter_table -> ALTER TABLE ID . ADD COLUMN ID type SEMICOLON
-    (33) alter_table -> ALTER TABLE ID . DROP COLUMN ID SEMICOLON
+    (36) expression -> expression MINUS . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    ADD             shift and go to state 26
-    DROP            shift and go to state 27
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
+    expression                     shift and go to state 43
 
 state 23
 
-    (8) create_database -> CREATE DATA BASE ID . SEMICOLON
+    (37) expression -> expression TIMES . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    SEMICOLON       shift and go to state 28
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
+    expression                     shift and go to state 44
 
 state 24
 
-    (10) create_table -> CREATE TABLE ID LPAREN . columns RPAREN SEMICOLON
-    (11) columns -> . columns COMMA column
-    (12) columns -> . column
-    (13) column -> . ID type attributes
+    (38) expression -> expression DIVIDE . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    ID              shift and go to state 29
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
-    columns                        shift and go to state 30
-    column                         shift and go to state 31
+    expression                     shift and go to state 45
 
 state 25
 
-    (24) insert_into -> INSERT INTO ID LPAREN . ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
-    (25) ids -> . ids COMMA ID
-    (26) ids -> . ID
+    (39) expression -> expression EQUAL . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    ID              shift and go to state 32
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
-    ids                            shift and go to state 33
+    expression                     shift and go to state 46
 
 state 26
 
-    (32) alter_table -> ALTER TABLE ID ADD . COLUMN ID type SEMICOLON
+    (40) expression -> expression DIFFERENT . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    COLUMN          shift and go to state 34
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
+    expression                     shift and go to state 47
 
 state 27
 
-    (33) alter_table -> ALTER TABLE ID DROP . COLUMN ID SEMICOLON
+    (41) expression -> expression GREATER . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    COLUMN          shift and go to state 35
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
+    expression                     shift and go to state 48
 
 state 28
 
-    (8) create_database -> CREATE DATA BASE ID SEMICOLON .
+    (42) expression -> expression LESS . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    CREATE          reduce using rule 8 (create_database -> CREATE DATA BASE ID SEMICOLON .)
-    USE             reduce using rule 8 (create_database -> CREATE DATA BASE ID SEMICOLON .)
-    INSERT          reduce using rule 8 (create_database -> CREATE DATA BASE ID SEMICOLON .)
-    ALTER           reduce using rule 8 (create_database -> CREATE DATA BASE ID SEMICOLON .)
-    $end            reduce using rule 8 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
+    expression                     shift and go to state 49
 
 state 29
 
-    (13) column -> ID . type attributes
-    (14) type -> . INT
-    (15) type -> . DATE
-    (16) type -> . NVARCHAR LPAREN NUMBER RPAREN
-    (17) type -> . DECIMAL
+    (43) expression -> expression GREATER_EQUAL . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    INT             shift and go to state 37
-    DATE            shift and go to state 38
-    NVARCHAR        shift and go to state 39
-    DECIMAL         shift and go to state 40
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
-    type                           shift and go to state 36
+    expression                     shift and go to state 50
 
 state 30
 
-    (10) create_table -> CREATE TABLE ID LPAREN columns . RPAREN SEMICOLON
-    (11) columns -> columns . COMMA column
+    (44) expression -> expression LESS_EQUAL . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    RPAREN          shift and go to state 41
-    COMMA           shift and go to state 42
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
+    expression                     shift and go to state 51
 
 state 31
 
-    (12) columns -> column .
+    (45) expression -> expression AND . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    RPAREN          reduce using rule 12 (columns -> column .)
-    COMMA           reduce using rule 12 (columns -> column .)
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
+    expression                     shift and go to state 52
 
 state 32
 
-    (26) ids -> ID .
+    (46) expression -> expression OR . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    RPAREN          reduce using rule 26 (ids -> ID .)
-    COMMA           reduce using rule 26 (ids -> ID .)
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
+    expression                     shift and go to state 53
 
 state 33
 
-    (24) insert_into -> INSERT INTO ID LPAREN ids . RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
-    (25) ids -> ids . COMMA ID
+    (47) expression -> expression NOT_SYMBOL . expression
+    (35) expression -> . expression PLUS expression
+    (36) expression -> . expression MINUS expression
+    (37) expression -> . expression TIMES expression
+    (38) expression -> . expression DIVIDE expression
+    (39) expression -> . expression EQUAL expression
+    (40) expression -> . expression DIFFERENT expression
+    (41) expression -> . expression GREATER expression
+    (42) expression -> . expression LESS expression
+    (43) expression -> . expression GREATER_EQUAL expression
+    (44) expression -> . expression LESS_EQUAL expression
+    (45) expression -> . expression AND expression
+    (46) expression -> . expression OR expression
+    (47) expression -> . expression NOT_SYMBOL expression
+    (48) expression -> . MINUS expression
+    (49) expression -> . LPAREN expression RPAREN
+    (50) expression -> . NUMBER
+    (51) expression -> . DECIMALES
+    (52) expression -> . STRING
+    (53) expression -> . ID PERIOD ID
+    (54) expression -> . ID
 
-    RPAREN          shift and go to state 43
-    COMMA           shift and go to state 44
+    MINUS           shift and go to state 15
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    DECIMALES       shift and go to state 17
+    STRING          shift and go to state 18
+    ID              shift and go to state 10
 
+    expression                     shift and go to state 54
 
 state 34
 
-    (32) alter_table -> ALTER TABLE ID ADD COLUMN . ID type SEMICOLON
+    (9) create_database -> CREATE DATA . BASE ID SEMICOLON
 
-    ID              shift and go to state 45
+    BASE            shift and go to state 55
 
 
 state 35
 
-    (33) alter_table -> ALTER TABLE ID DROP COLUMN . ID SEMICOLON
+    (11) create_table -> CREATE TABLE . ID LPAREN columns RPAREN SEMICOLON
 
-    ID              shift and go to state 46
+    ID              shift and go to state 56
 
 
 state 36
 
-    (13) column -> ID type . attributes
-    (18) attributes -> . attributes attribute
-    (19) attributes -> . attribute
-    (20) attributes -> . empty
-    (21) attribute -> . PRIMARY KEY
-    (22) attribute -> . REFERENCE ID LPAREN ID RPAREN
-    (23) attribute -> . NOT NULL
-    (34) empty -> .
-
-  ! shift/reduce conflict for PRIMARY resolved as shift
-  ! shift/reduce conflict for REFERENCE resolved as shift
-  ! shift/reduce conflict for NOT resolved as shift
-    PRIMARY         shift and go to state 50
-    REFERENCE       shift and go to state 51
-    NOT             shift and go to state 52
-    RPAREN          reduce using rule 34 (empty -> .)
-    COMMA           reduce using rule 34 (empty -> .)
-
-  ! PRIMARY         [ reduce using rule 34 (empty -> .) ]
-  ! REFERENCE       [ reduce using rule 34 (empty -> .) ]
-  ! NOT             [ reduce using rule 34 (empty -> .) ]
-
-    attributes                     shift and go to state 47
-    attribute                      shift and go to state 48
-    empty                          shift and go to state 49
-
-state 37
-
-    (14) type -> INT .
-
-    PRIMARY         reduce using rule 14 (type -> INT .)
-    REFERENCE       reduce using rule 14 (type -> INT .)
-    NOT             reduce using rule 14 (type -> INT .)
-    RPAREN          reduce using rule 14 (type -> INT .)
-    COMMA           reduce using rule 14 (type -> INT .)
-    SEMICOLON       reduce using rule 14 (type -> INT .)
-
-
-state 38
-
-    (15) type -> DATE .
-
-    PRIMARY         reduce using rule 15 (type -> DATE .)
-    REFERENCE       reduce using rule 15 (type -> DATE .)
-    NOT             reduce using rule 15 (type -> DATE .)
-    RPAREN          reduce using rule 15 (type -> DATE .)
-    COMMA           reduce using rule 15 (type -> DATE .)
-    SEMICOLON       reduce using rule 15 (type -> DATE .)
-
-
-state 39
-
-    (16) type -> NVARCHAR . LPAREN NUMBER RPAREN
-
-    LPAREN          shift and go to state 53
-
-
-state 40
-
-    (17) type -> DECIMAL .
-
-    PRIMARY         reduce using rule 17 (type -> DECIMAL .)
-    REFERENCE       reduce using rule 17 (type -> DECIMAL .)
-    NOT             reduce using rule 17 (type -> DECIMAL .)
-    RPAREN          reduce using rule 17 (type -> DECIMAL .)
-    COMMA           reduce using rule 17 (type -> DECIMAL .)
-    SEMICOLON       reduce using rule 17 (type -> DECIMAL .)
-
-
-state 41
-
-    (10) create_table -> CREATE TABLE ID LPAREN columns RPAREN . SEMICOLON
-
-    SEMICOLON       shift and go to state 54
-
-
-state 42
-
-    (11) columns -> columns COMMA . column
-    (13) column -> . ID type attributes
-
-    ID              shift and go to state 29
-
-    column                         shift and go to state 55
-
-state 43
-
-    (24) insert_into -> INSERT INTO ID LPAREN ids RPAREN . VALUES LPAREN primitives RPAREN SEMICOLON
-
-    VALUES          shift and go to state 56
-
-
-state 44
-
-    (25) ids -> ids COMMA . ID
+    (53) expression -> ID PERIOD . ID
 
     ID              shift and go to state 57
 
 
+state 37
+
+    (10) use_database -> USE ID . SEMICOLON
+
+    SEMICOLON       shift and go to state 58
+
+
+state 38
+
+    (49) expression -> LPAREN expression . RPAREN
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
+
+    RPAREN          shift and go to state 59
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+    TIMES           shift and go to state 23
+    DIVIDE          shift and go to state 24
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+    NOT_SYMBOL      shift and go to state 33
+
+
+state 39
+
+    (25) insert_into -> INSERT INTO . ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+
+    ID              shift and go to state 60
+
+
+state 40
+
+    (33) alter_table -> ALTER TABLE . ID ADD COLUMN ID type SEMICOLON
+    (34) alter_table -> ALTER TABLE . ID DROP COLUMN ID SEMICOLON
+
+    ID              shift and go to state 61
+
+
+state 41
+
+    (48) expression -> MINUS expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
+
+    SEMICOLON       reduce using rule 48 (expression -> MINUS expression .)
+    PLUS            reduce using rule 48 (expression -> MINUS expression .)
+    MINUS           reduce using rule 48 (expression -> MINUS expression .)
+    TIMES           reduce using rule 48 (expression -> MINUS expression .)
+    DIVIDE          reduce using rule 48 (expression -> MINUS expression .)
+    EQUAL           reduce using rule 48 (expression -> MINUS expression .)
+    DIFFERENT       reduce using rule 48 (expression -> MINUS expression .)
+    GREATER         reduce using rule 48 (expression -> MINUS expression .)
+    LESS            reduce using rule 48 (expression -> MINUS expression .)
+    GREATER_EQUAL   reduce using rule 48 (expression -> MINUS expression .)
+    LESS_EQUAL      reduce using rule 48 (expression -> MINUS expression .)
+    AND             reduce using rule 48 (expression -> MINUS expression .)
+    OR              reduce using rule 48 (expression -> MINUS expression .)
+    NOT_SYMBOL      reduce using rule 48 (expression -> MINUS expression .)
+    RPAREN          reduce using rule 48 (expression -> MINUS expression .)
+
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! TIMES           [ shift and go to state 23 ]
+  ! DIVIDE          [ shift and go to state 24 ]
+  ! EQUAL           [ shift and go to state 25 ]
+  ! DIFFERENT       [ shift and go to state 26 ]
+  ! GREATER         [ shift and go to state 27 ]
+  ! LESS            [ shift and go to state 28 ]
+  ! GREATER_EQUAL   [ shift and go to state 29 ]
+  ! LESS_EQUAL      [ shift and go to state 30 ]
+  ! AND             [ shift and go to state 31 ]
+  ! OR              [ shift and go to state 32 ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
+
+
+state 42
+
+    (35) expression -> expression PLUS expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
+
+    SEMICOLON       reduce using rule 35 (expression -> expression PLUS expression .)
+    NOT_SYMBOL      reduce using rule 35 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 35 (expression -> expression PLUS expression .)
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+    TIMES           shift and go to state 23
+    DIVIDE          shift and go to state 24
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+  ! PLUS            [ reduce using rule 35 (expression -> expression PLUS expression .) ]
+  ! MINUS           [ reduce using rule 35 (expression -> expression PLUS expression .) ]
+  ! TIMES           [ reduce using rule 35 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 35 (expression -> expression PLUS expression .) ]
+  ! EQUAL           [ reduce using rule 35 (expression -> expression PLUS expression .) ]
+  ! DIFFERENT       [ reduce using rule 35 (expression -> expression PLUS expression .) ]
+  ! GREATER         [ reduce using rule 35 (expression -> expression PLUS expression .) ]
+  ! LESS            [ reduce using rule 35 (expression -> expression PLUS expression .) ]
+  ! GREATER_EQUAL   [ reduce using rule 35 (expression -> expression PLUS expression .) ]
+  ! LESS_EQUAL      [ reduce using rule 35 (expression -> expression PLUS expression .) ]
+  ! AND             [ reduce using rule 35 (expression -> expression PLUS expression .) ]
+  ! OR              [ reduce using rule 35 (expression -> expression PLUS expression .) ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
+
+
+state 43
+
+    (36) expression -> expression MINUS expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
+
+    SEMICOLON       reduce using rule 36 (expression -> expression MINUS expression .)
+    NOT_SYMBOL      reduce using rule 36 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 36 (expression -> expression MINUS expression .)
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+    TIMES           shift and go to state 23
+    DIVIDE          shift and go to state 24
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+  ! PLUS            [ reduce using rule 36 (expression -> expression MINUS expression .) ]
+  ! MINUS           [ reduce using rule 36 (expression -> expression MINUS expression .) ]
+  ! TIMES           [ reduce using rule 36 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 36 (expression -> expression MINUS expression .) ]
+  ! EQUAL           [ reduce using rule 36 (expression -> expression MINUS expression .) ]
+  ! DIFFERENT       [ reduce using rule 36 (expression -> expression MINUS expression .) ]
+  ! GREATER         [ reduce using rule 36 (expression -> expression MINUS expression .) ]
+  ! LESS            [ reduce using rule 36 (expression -> expression MINUS expression .) ]
+  ! GREATER_EQUAL   [ reduce using rule 36 (expression -> expression MINUS expression .) ]
+  ! LESS_EQUAL      [ reduce using rule 36 (expression -> expression MINUS expression .) ]
+  ! AND             [ reduce using rule 36 (expression -> expression MINUS expression .) ]
+  ! OR              [ reduce using rule 36 (expression -> expression MINUS expression .) ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
+
+
+state 44
+
+    (37) expression -> expression TIMES expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
+
+    SEMICOLON       reduce using rule 37 (expression -> expression TIMES expression .)
+    PLUS            reduce using rule 37 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 37 (expression -> expression TIMES expression .)
+    NOT_SYMBOL      reduce using rule 37 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 37 (expression -> expression TIMES expression .)
+    TIMES           shift and go to state 23
+    DIVIDE          shift and go to state 24
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+  ! TIMES           [ reduce using rule 37 (expression -> expression TIMES expression .) ]
+  ! DIVIDE          [ reduce using rule 37 (expression -> expression TIMES expression .) ]
+  ! EQUAL           [ reduce using rule 37 (expression -> expression TIMES expression .) ]
+  ! DIFFERENT       [ reduce using rule 37 (expression -> expression TIMES expression .) ]
+  ! GREATER         [ reduce using rule 37 (expression -> expression TIMES expression .) ]
+  ! LESS            [ reduce using rule 37 (expression -> expression TIMES expression .) ]
+  ! GREATER_EQUAL   [ reduce using rule 37 (expression -> expression TIMES expression .) ]
+  ! LESS_EQUAL      [ reduce using rule 37 (expression -> expression TIMES expression .) ]
+  ! AND             [ reduce using rule 37 (expression -> expression TIMES expression .) ]
+  ! OR              [ reduce using rule 37 (expression -> expression TIMES expression .) ]
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
+
+
 state 45
 
-    (32) alter_table -> ALTER TABLE ID ADD COLUMN ID . type SEMICOLON
-    (14) type -> . INT
-    (15) type -> . DATE
-    (16) type -> . NVARCHAR LPAREN NUMBER RPAREN
-    (17) type -> . DECIMAL
+    (38) expression -> expression DIVIDE expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
 
-    INT             shift and go to state 37
-    DATE            shift and go to state 38
-    NVARCHAR        shift and go to state 39
-    DECIMAL         shift and go to state 40
+    SEMICOLON       reduce using rule 38 (expression -> expression DIVIDE expression .)
+    PLUS            reduce using rule 38 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 38 (expression -> expression DIVIDE expression .)
+    NOT_SYMBOL      reduce using rule 38 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 38 (expression -> expression DIVIDE expression .)
+    TIMES           shift and go to state 23
+    DIVIDE          shift and go to state 24
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
 
-    type                           shift and go to state 58
+  ! TIMES           [ reduce using rule 38 (expression -> expression DIVIDE expression .) ]
+  ! DIVIDE          [ reduce using rule 38 (expression -> expression DIVIDE expression .) ]
+  ! EQUAL           [ reduce using rule 38 (expression -> expression DIVIDE expression .) ]
+  ! DIFFERENT       [ reduce using rule 38 (expression -> expression DIVIDE expression .) ]
+  ! GREATER         [ reduce using rule 38 (expression -> expression DIVIDE expression .) ]
+  ! LESS            [ reduce using rule 38 (expression -> expression DIVIDE expression .) ]
+  ! GREATER_EQUAL   [ reduce using rule 38 (expression -> expression DIVIDE expression .) ]
+  ! LESS_EQUAL      [ reduce using rule 38 (expression -> expression DIVIDE expression .) ]
+  ! AND             [ reduce using rule 38 (expression -> expression DIVIDE expression .) ]
+  ! OR              [ reduce using rule 38 (expression -> expression DIVIDE expression .) ]
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
+
 
 state 46
 
-    (33) alter_table -> ALTER TABLE ID DROP COLUMN ID . SEMICOLON
+    (39) expression -> expression EQUAL expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
 
-    SEMICOLON       shift and go to state 59
+    SEMICOLON       reduce using rule 39 (expression -> expression EQUAL expression .)
+    PLUS            reduce using rule 39 (expression -> expression EQUAL expression .)
+    MINUS           reduce using rule 39 (expression -> expression EQUAL expression .)
+    TIMES           reduce using rule 39 (expression -> expression EQUAL expression .)
+    DIVIDE          reduce using rule 39 (expression -> expression EQUAL expression .)
+    NOT_SYMBOL      reduce using rule 39 (expression -> expression EQUAL expression .)
+    RPAREN          reduce using rule 39 (expression -> expression EQUAL expression .)
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+  ! EQUAL           [ reduce using rule 39 (expression -> expression EQUAL expression .) ]
+  ! DIFFERENT       [ reduce using rule 39 (expression -> expression EQUAL expression .) ]
+  ! GREATER         [ reduce using rule 39 (expression -> expression EQUAL expression .) ]
+  ! LESS            [ reduce using rule 39 (expression -> expression EQUAL expression .) ]
+  ! GREATER_EQUAL   [ reduce using rule 39 (expression -> expression EQUAL expression .) ]
+  ! LESS_EQUAL      [ reduce using rule 39 (expression -> expression EQUAL expression .) ]
+  ! AND             [ reduce using rule 39 (expression -> expression EQUAL expression .) ]
+  ! OR              [ reduce using rule 39 (expression -> expression EQUAL expression .) ]
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! TIMES           [ shift and go to state 23 ]
+  ! DIVIDE          [ shift and go to state 24 ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
 
 
 state 47
 
-    (13) column -> ID type attributes .
-    (18) attributes -> attributes . attribute
-    (21) attribute -> . PRIMARY KEY
-    (22) attribute -> . REFERENCE ID LPAREN ID RPAREN
-    (23) attribute -> . NOT NULL
+    (40) expression -> expression DIFFERENT expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
 
-    RPAREN          reduce using rule 13 (column -> ID type attributes .)
-    COMMA           reduce using rule 13 (column -> ID type attributes .)
-    PRIMARY         shift and go to state 50
-    REFERENCE       shift and go to state 51
-    NOT             shift and go to state 52
+    SEMICOLON       reduce using rule 40 (expression -> expression DIFFERENT expression .)
+    PLUS            reduce using rule 40 (expression -> expression DIFFERENT expression .)
+    MINUS           reduce using rule 40 (expression -> expression DIFFERENT expression .)
+    TIMES           reduce using rule 40 (expression -> expression DIFFERENT expression .)
+    DIVIDE          reduce using rule 40 (expression -> expression DIFFERENT expression .)
+    NOT_SYMBOL      reduce using rule 40 (expression -> expression DIFFERENT expression .)
+    RPAREN          reduce using rule 40 (expression -> expression DIFFERENT expression .)
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
 
-    attribute                      shift and go to state 60
+  ! EQUAL           [ reduce using rule 40 (expression -> expression DIFFERENT expression .) ]
+  ! DIFFERENT       [ reduce using rule 40 (expression -> expression DIFFERENT expression .) ]
+  ! GREATER         [ reduce using rule 40 (expression -> expression DIFFERENT expression .) ]
+  ! LESS            [ reduce using rule 40 (expression -> expression DIFFERENT expression .) ]
+  ! GREATER_EQUAL   [ reduce using rule 40 (expression -> expression DIFFERENT expression .) ]
+  ! LESS_EQUAL      [ reduce using rule 40 (expression -> expression DIFFERENT expression .) ]
+  ! AND             [ reduce using rule 40 (expression -> expression DIFFERENT expression .) ]
+  ! OR              [ reduce using rule 40 (expression -> expression DIFFERENT expression .) ]
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! TIMES           [ shift and go to state 23 ]
+  ! DIVIDE          [ shift and go to state 24 ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
+
 
 state 48
 
-    (19) attributes -> attribute .
+    (41) expression -> expression GREATER expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
 
-    PRIMARY         reduce using rule 19 (attributes -> attribute .)
-    REFERENCE       reduce using rule 19 (attributes -> attribute .)
-    NOT             reduce using rule 19 (attributes -> attribute .)
-    RPAREN          reduce using rule 19 (attributes -> attribute .)
-    COMMA           reduce using rule 19 (attributes -> attribute .)
+    SEMICOLON       reduce using rule 41 (expression -> expression GREATER expression .)
+    PLUS            reduce using rule 41 (expression -> expression GREATER expression .)
+    MINUS           reduce using rule 41 (expression -> expression GREATER expression .)
+    TIMES           reduce using rule 41 (expression -> expression GREATER expression .)
+    DIVIDE          reduce using rule 41 (expression -> expression GREATER expression .)
+    NOT_SYMBOL      reduce using rule 41 (expression -> expression GREATER expression .)
+    RPAREN          reduce using rule 41 (expression -> expression GREATER expression .)
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+  ! EQUAL           [ reduce using rule 41 (expression -> expression GREATER expression .) ]
+  ! DIFFERENT       [ reduce using rule 41 (expression -> expression GREATER expression .) ]
+  ! GREATER         [ reduce using rule 41 (expression -> expression GREATER expression .) ]
+  ! LESS            [ reduce using rule 41 (expression -> expression GREATER expression .) ]
+  ! GREATER_EQUAL   [ reduce using rule 41 (expression -> expression GREATER expression .) ]
+  ! LESS_EQUAL      [ reduce using rule 41 (expression -> expression GREATER expression .) ]
+  ! AND             [ reduce using rule 41 (expression -> expression GREATER expression .) ]
+  ! OR              [ reduce using rule 41 (expression -> expression GREATER expression .) ]
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! TIMES           [ shift and go to state 23 ]
+  ! DIVIDE          [ shift and go to state 24 ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
 
 
 state 49
 
-    (20) attributes -> empty .
+    (42) expression -> expression LESS expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
 
-    PRIMARY         reduce using rule 20 (attributes -> empty .)
-    REFERENCE       reduce using rule 20 (attributes -> empty .)
-    NOT             reduce using rule 20 (attributes -> empty .)
-    RPAREN          reduce using rule 20 (attributes -> empty .)
-    COMMA           reduce using rule 20 (attributes -> empty .)
+    SEMICOLON       reduce using rule 42 (expression -> expression LESS expression .)
+    PLUS            reduce using rule 42 (expression -> expression LESS expression .)
+    MINUS           reduce using rule 42 (expression -> expression LESS expression .)
+    TIMES           reduce using rule 42 (expression -> expression LESS expression .)
+    DIVIDE          reduce using rule 42 (expression -> expression LESS expression .)
+    NOT_SYMBOL      reduce using rule 42 (expression -> expression LESS expression .)
+    RPAREN          reduce using rule 42 (expression -> expression LESS expression .)
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+  ! EQUAL           [ reduce using rule 42 (expression -> expression LESS expression .) ]
+  ! DIFFERENT       [ reduce using rule 42 (expression -> expression LESS expression .) ]
+  ! GREATER         [ reduce using rule 42 (expression -> expression LESS expression .) ]
+  ! LESS            [ reduce using rule 42 (expression -> expression LESS expression .) ]
+  ! GREATER_EQUAL   [ reduce using rule 42 (expression -> expression LESS expression .) ]
+  ! LESS_EQUAL      [ reduce using rule 42 (expression -> expression LESS expression .) ]
+  ! AND             [ reduce using rule 42 (expression -> expression LESS expression .) ]
+  ! OR              [ reduce using rule 42 (expression -> expression LESS expression .) ]
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! TIMES           [ shift and go to state 23 ]
+  ! DIVIDE          [ shift and go to state 24 ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
 
 
 state 50
 
-    (21) attribute -> PRIMARY . KEY
+    (43) expression -> expression GREATER_EQUAL expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
 
-    KEY             shift and go to state 61
+    SEMICOLON       reduce using rule 43 (expression -> expression GREATER_EQUAL expression .)
+    PLUS            reduce using rule 43 (expression -> expression GREATER_EQUAL expression .)
+    MINUS           reduce using rule 43 (expression -> expression GREATER_EQUAL expression .)
+    TIMES           reduce using rule 43 (expression -> expression GREATER_EQUAL expression .)
+    DIVIDE          reduce using rule 43 (expression -> expression GREATER_EQUAL expression .)
+    NOT_SYMBOL      reduce using rule 43 (expression -> expression GREATER_EQUAL expression .)
+    RPAREN          reduce using rule 43 (expression -> expression GREATER_EQUAL expression .)
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+  ! EQUAL           [ reduce using rule 43 (expression -> expression GREATER_EQUAL expression .) ]
+  ! DIFFERENT       [ reduce using rule 43 (expression -> expression GREATER_EQUAL expression .) ]
+  ! GREATER         [ reduce using rule 43 (expression -> expression GREATER_EQUAL expression .) ]
+  ! LESS            [ reduce using rule 43 (expression -> expression GREATER_EQUAL expression .) ]
+  ! GREATER_EQUAL   [ reduce using rule 43 (expression -> expression GREATER_EQUAL expression .) ]
+  ! LESS_EQUAL      [ reduce using rule 43 (expression -> expression GREATER_EQUAL expression .) ]
+  ! AND             [ reduce using rule 43 (expression -> expression GREATER_EQUAL expression .) ]
+  ! OR              [ reduce using rule 43 (expression -> expression GREATER_EQUAL expression .) ]
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! TIMES           [ shift and go to state 23 ]
+  ! DIVIDE          [ shift and go to state 24 ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
 
 
 state 51
 
-    (22) attribute -> REFERENCE . ID LPAREN ID RPAREN
+    (44) expression -> expression LESS_EQUAL expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
 
-    ID              shift and go to state 62
+    SEMICOLON       reduce using rule 44 (expression -> expression LESS_EQUAL expression .)
+    PLUS            reduce using rule 44 (expression -> expression LESS_EQUAL expression .)
+    MINUS           reduce using rule 44 (expression -> expression LESS_EQUAL expression .)
+    TIMES           reduce using rule 44 (expression -> expression LESS_EQUAL expression .)
+    DIVIDE          reduce using rule 44 (expression -> expression LESS_EQUAL expression .)
+    NOT_SYMBOL      reduce using rule 44 (expression -> expression LESS_EQUAL expression .)
+    RPAREN          reduce using rule 44 (expression -> expression LESS_EQUAL expression .)
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+  ! EQUAL           [ reduce using rule 44 (expression -> expression LESS_EQUAL expression .) ]
+  ! DIFFERENT       [ reduce using rule 44 (expression -> expression LESS_EQUAL expression .) ]
+  ! GREATER         [ reduce using rule 44 (expression -> expression LESS_EQUAL expression .) ]
+  ! LESS            [ reduce using rule 44 (expression -> expression LESS_EQUAL expression .) ]
+  ! GREATER_EQUAL   [ reduce using rule 44 (expression -> expression LESS_EQUAL expression .) ]
+  ! LESS_EQUAL      [ reduce using rule 44 (expression -> expression LESS_EQUAL expression .) ]
+  ! AND             [ reduce using rule 44 (expression -> expression LESS_EQUAL expression .) ]
+  ! OR              [ reduce using rule 44 (expression -> expression LESS_EQUAL expression .) ]
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! TIMES           [ shift and go to state 23 ]
+  ! DIVIDE          [ shift and go to state 24 ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
 
 
 state 52
 
-    (23) attribute -> NOT . NULL
+    (45) expression -> expression AND expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
 
-    NULL            shift and go to state 63
+    SEMICOLON       reduce using rule 45 (expression -> expression AND expression .)
+    PLUS            reduce using rule 45 (expression -> expression AND expression .)
+    MINUS           reduce using rule 45 (expression -> expression AND expression .)
+    TIMES           reduce using rule 45 (expression -> expression AND expression .)
+    DIVIDE          reduce using rule 45 (expression -> expression AND expression .)
+    EQUAL           reduce using rule 45 (expression -> expression AND expression .)
+    DIFFERENT       reduce using rule 45 (expression -> expression AND expression .)
+    GREATER         reduce using rule 45 (expression -> expression AND expression .)
+    LESS            reduce using rule 45 (expression -> expression AND expression .)
+    GREATER_EQUAL   reduce using rule 45 (expression -> expression AND expression .)
+    LESS_EQUAL      reduce using rule 45 (expression -> expression AND expression .)
+    OR              reduce using rule 45 (expression -> expression AND expression .)
+    NOT_SYMBOL      reduce using rule 45 (expression -> expression AND expression .)
+    RPAREN          reduce using rule 45 (expression -> expression AND expression .)
+    AND             shift and go to state 31
+
+  ! AND             [ reduce using rule 45 (expression -> expression AND expression .) ]
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! TIMES           [ shift and go to state 23 ]
+  ! DIVIDE          [ shift and go to state 24 ]
+  ! EQUAL           [ shift and go to state 25 ]
+  ! DIFFERENT       [ shift and go to state 26 ]
+  ! GREATER         [ shift and go to state 27 ]
+  ! LESS            [ shift and go to state 28 ]
+  ! GREATER_EQUAL   [ shift and go to state 29 ]
+  ! LESS_EQUAL      [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 32 ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
 
 
 state 53
 
-    (16) type -> NVARCHAR LPAREN . NUMBER RPAREN
+    (46) expression -> expression OR expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
 
-    NUMBER          shift and go to state 64
+    SEMICOLON       reduce using rule 46 (expression -> expression OR expression .)
+    PLUS            reduce using rule 46 (expression -> expression OR expression .)
+    MINUS           reduce using rule 46 (expression -> expression OR expression .)
+    TIMES           reduce using rule 46 (expression -> expression OR expression .)
+    DIVIDE          reduce using rule 46 (expression -> expression OR expression .)
+    EQUAL           reduce using rule 46 (expression -> expression OR expression .)
+    DIFFERENT       reduce using rule 46 (expression -> expression OR expression .)
+    GREATER         reduce using rule 46 (expression -> expression OR expression .)
+    LESS            reduce using rule 46 (expression -> expression OR expression .)
+    GREATER_EQUAL   reduce using rule 46 (expression -> expression OR expression .)
+    LESS_EQUAL      reduce using rule 46 (expression -> expression OR expression .)
+    NOT_SYMBOL      reduce using rule 46 (expression -> expression OR expression .)
+    RPAREN          reduce using rule 46 (expression -> expression OR expression .)
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+  ! AND             [ reduce using rule 46 (expression -> expression OR expression .) ]
+  ! OR              [ reduce using rule 46 (expression -> expression OR expression .) ]
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! TIMES           [ shift and go to state 23 ]
+  ! DIVIDE          [ shift and go to state 24 ]
+  ! EQUAL           [ shift and go to state 25 ]
+  ! DIFFERENT       [ shift and go to state 26 ]
+  ! GREATER         [ shift and go to state 27 ]
+  ! LESS            [ shift and go to state 28 ]
+  ! GREATER_EQUAL   [ shift and go to state 29 ]
+  ! LESS_EQUAL      [ shift and go to state 30 ]
+  ! NOT_SYMBOL      [ shift and go to state 33 ]
 
 
 state 54
 
-    (10) create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .
+    (47) expression -> expression NOT_SYMBOL expression .
+    (35) expression -> expression . PLUS expression
+    (36) expression -> expression . MINUS expression
+    (37) expression -> expression . TIMES expression
+    (38) expression -> expression . DIVIDE expression
+    (39) expression -> expression . EQUAL expression
+    (40) expression -> expression . DIFFERENT expression
+    (41) expression -> expression . GREATER expression
+    (42) expression -> expression . LESS expression
+    (43) expression -> expression . GREATER_EQUAL expression
+    (44) expression -> expression . LESS_EQUAL expression
+    (45) expression -> expression . AND expression
+    (46) expression -> expression . OR expression
+    (47) expression -> expression . NOT_SYMBOL expression
 
-    CREATE          reduce using rule 10 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
-    USE             reduce using rule 10 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
-    INSERT          reduce using rule 10 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
-    ALTER           reduce using rule 10 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
-    $end            reduce using rule 10 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for DIFFERENT resolved as shift
+  ! shift/reduce conflict for GREATER resolved as shift
+  ! shift/reduce conflict for LESS resolved as shift
+  ! shift/reduce conflict for GREATER_EQUAL resolved as shift
+  ! shift/reduce conflict for LESS_EQUAL resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for NOT_SYMBOL resolved as shift
+    SEMICOLON       reduce using rule 47 (expression -> expression NOT_SYMBOL expression .)
+    RPAREN          reduce using rule 47 (expression -> expression NOT_SYMBOL expression .)
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+    TIMES           shift and go to state 23
+    DIVIDE          shift and go to state 24
+    EQUAL           shift and go to state 25
+    DIFFERENT       shift and go to state 26
+    GREATER         shift and go to state 27
+    LESS            shift and go to state 28
+    GREATER_EQUAL   shift and go to state 29
+    LESS_EQUAL      shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+    NOT_SYMBOL      shift and go to state 33
+
+  ! PLUS            [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
+  ! MINUS           [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
+  ! TIMES           [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
+  ! DIVIDE          [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
+  ! EQUAL           [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
+  ! DIFFERENT       [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
+  ! GREATER         [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
+  ! LESS            [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
+  ! GREATER_EQUAL   [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
+  ! LESS_EQUAL      [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
+  ! AND             [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
+  ! OR              [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
+  ! NOT_SYMBOL      [ reduce using rule 47 (expression -> expression NOT_SYMBOL expression .) ]
 
 
 state 55
 
-    (11) columns -> columns COMMA column .
+    (9) create_database -> CREATE DATA BASE . ID SEMICOLON
 
-    RPAREN          reduce using rule 11 (columns -> columns COMMA column .)
-    COMMA           reduce using rule 11 (columns -> columns COMMA column .)
+    ID              shift and go to state 62
 
 
 state 56
 
-    (24) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES . LPAREN primitives RPAREN SEMICOLON
+    (11) create_table -> CREATE TABLE ID . LPAREN columns RPAREN SEMICOLON
 
-    LPAREN          shift and go to state 65
+    LPAREN          shift and go to state 63
 
 
 state 57
 
-    (25) ids -> ids COMMA ID .
+    (53) expression -> ID PERIOD ID .
 
-    RPAREN          reduce using rule 25 (ids -> ids COMMA ID .)
-    COMMA           reduce using rule 25 (ids -> ids COMMA ID .)
+    SEMICOLON       reduce using rule 53 (expression -> ID PERIOD ID .)
+    PLUS            reduce using rule 53 (expression -> ID PERIOD ID .)
+    MINUS           reduce using rule 53 (expression -> ID PERIOD ID .)
+    TIMES           reduce using rule 53 (expression -> ID PERIOD ID .)
+    DIVIDE          reduce using rule 53 (expression -> ID PERIOD ID .)
+    EQUAL           reduce using rule 53 (expression -> ID PERIOD ID .)
+    DIFFERENT       reduce using rule 53 (expression -> ID PERIOD ID .)
+    GREATER         reduce using rule 53 (expression -> ID PERIOD ID .)
+    LESS            reduce using rule 53 (expression -> ID PERIOD ID .)
+    GREATER_EQUAL   reduce using rule 53 (expression -> ID PERIOD ID .)
+    LESS_EQUAL      reduce using rule 53 (expression -> ID PERIOD ID .)
+    AND             reduce using rule 53 (expression -> ID PERIOD ID .)
+    OR              reduce using rule 53 (expression -> ID PERIOD ID .)
+    NOT_SYMBOL      reduce using rule 53 (expression -> ID PERIOD ID .)
+    RPAREN          reduce using rule 53 (expression -> ID PERIOD ID .)
 
 
 state 58
 
-    (32) alter_table -> ALTER TABLE ID ADD COLUMN ID type . SEMICOLON
+    (10) use_database -> USE ID SEMICOLON .
 
-    SEMICOLON       shift and go to state 66
+    CREATE          reduce using rule 10 (use_database -> USE ID SEMICOLON .)
+    USE             reduce using rule 10 (use_database -> USE ID SEMICOLON .)
+    INSERT          reduce using rule 10 (use_database -> USE ID SEMICOLON .)
+    ALTER           reduce using rule 10 (use_database -> USE ID SEMICOLON .)
+    MINUS           reduce using rule 10 (use_database -> USE ID SEMICOLON .)
+    LPAREN          reduce using rule 10 (use_database -> USE ID SEMICOLON .)
+    NUMBER          reduce using rule 10 (use_database -> USE ID SEMICOLON .)
+    DECIMALES       reduce using rule 10 (use_database -> USE ID SEMICOLON .)
+    STRING          reduce using rule 10 (use_database -> USE ID SEMICOLON .)
+    ID              reduce using rule 10 (use_database -> USE ID SEMICOLON .)
+    $end            reduce using rule 10 (use_database -> USE ID SEMICOLON .)
 
 
 state 59
 
-    (33) alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .
+    (49) expression -> LPAREN expression RPAREN .
 
-    CREATE          reduce using rule 33 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
-    USE             reduce using rule 33 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
-    INSERT          reduce using rule 33 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
-    ALTER           reduce using rule 33 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
-    $end            reduce using rule 33 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    SEMICOLON       reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    EQUAL           reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    DIFFERENT       reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    GREATER         reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    LESS            reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    GREATER_EQUAL   reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    LESS_EQUAL      reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    AND             reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    OR              reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    NOT_SYMBOL      reduce using rule 49 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 49 (expression -> LPAREN expression RPAREN .)
 
 
 state 60
 
-    (18) attributes -> attributes attribute .
+    (25) insert_into -> INSERT INTO ID . LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
 
-    PRIMARY         reduce using rule 18 (attributes -> attributes attribute .)
-    REFERENCE       reduce using rule 18 (attributes -> attributes attribute .)
-    NOT             reduce using rule 18 (attributes -> attributes attribute .)
-    RPAREN          reduce using rule 18 (attributes -> attributes attribute .)
-    COMMA           reduce using rule 18 (attributes -> attributes attribute .)
+    LPAREN          shift and go to state 64
 
 
 state 61
 
-    (21) attribute -> PRIMARY KEY .
+    (33) alter_table -> ALTER TABLE ID . ADD COLUMN ID type SEMICOLON
+    (34) alter_table -> ALTER TABLE ID . DROP COLUMN ID SEMICOLON
 
-    PRIMARY         reduce using rule 21 (attribute -> PRIMARY KEY .)
-    REFERENCE       reduce using rule 21 (attribute -> PRIMARY KEY .)
-    NOT             reduce using rule 21 (attribute -> PRIMARY KEY .)
-    RPAREN          reduce using rule 21 (attribute -> PRIMARY KEY .)
-    COMMA           reduce using rule 21 (attribute -> PRIMARY KEY .)
+    ADD             shift and go to state 65
+    DROP            shift and go to state 66
 
 
 state 62
 
-    (22) attribute -> REFERENCE ID . LPAREN ID RPAREN
+    (9) create_database -> CREATE DATA BASE ID . SEMICOLON
 
-    LPAREN          shift and go to state 67
+    SEMICOLON       shift and go to state 67
 
 
 state 63
 
-    (23) attribute -> NOT NULL .
+    (11) create_table -> CREATE TABLE ID LPAREN . columns RPAREN SEMICOLON
+    (12) columns -> . columns COMMA column
+    (13) columns -> . column
+    (14) column -> . ID type attributes
 
-    PRIMARY         reduce using rule 23 (attribute -> NOT NULL .)
-    REFERENCE       reduce using rule 23 (attribute -> NOT NULL .)
-    NOT             reduce using rule 23 (attribute -> NOT NULL .)
-    RPAREN          reduce using rule 23 (attribute -> NOT NULL .)
-    COMMA           reduce using rule 23 (attribute -> NOT NULL .)
+    ID              shift and go to state 68
 
+    columns                        shift and go to state 69
+    column                         shift and go to state 70
 
 state 64
 
-    (16) type -> NVARCHAR LPAREN NUMBER . RPAREN
+    (25) insert_into -> INSERT INTO ID LPAREN . ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (26) ids -> . ids COMMA ID
+    (27) ids -> . ID
 
-    RPAREN          shift and go to state 68
+    ID              shift and go to state 71
 
+    ids                            shift and go to state 72
 
 state 65
 
-    (24) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN . primitives RPAREN SEMICOLON
-    (27) primitives -> . primitives COMMA primitive
-    (28) primitives -> . primitive
-    (29) primitive -> . NUMBER
-    (30) primitive -> . DECIMALES
-    (31) primitive -> . STRING
+    (33) alter_table -> ALTER TABLE ID ADD . COLUMN ID type SEMICOLON
 
-    NUMBER          shift and go to state 71
-    DECIMALES       shift and go to state 72
-    STRING          shift and go to state 73
+    COLUMN          shift and go to state 73
 
-    primitives                     shift and go to state 69
-    primitive                      shift and go to state 70
 
 state 66
 
-    (32) alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .
+    (34) alter_table -> ALTER TABLE ID DROP . COLUMN ID SEMICOLON
 
-    CREATE          reduce using rule 32 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
-    USE             reduce using rule 32 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
-    INSERT          reduce using rule 32 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
-    ALTER           reduce using rule 32 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
-    $end            reduce using rule 32 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    COLUMN          shift and go to state 74
 
 
 state 67
 
-    (22) attribute -> REFERENCE ID LPAREN . ID RPAREN
+    (9) create_database -> CREATE DATA BASE ID SEMICOLON .
 
-    ID              shift and go to state 74
+    CREATE          reduce using rule 9 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    USE             reduce using rule 9 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    INSERT          reduce using rule 9 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    ALTER           reduce using rule 9 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    MINUS           reduce using rule 9 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    LPAREN          reduce using rule 9 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    NUMBER          reduce using rule 9 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    DECIMALES       reduce using rule 9 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    STRING          reduce using rule 9 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    ID              reduce using rule 9 (create_database -> CREATE DATA BASE ID SEMICOLON .)
+    $end            reduce using rule 9 (create_database -> CREATE DATA BASE ID SEMICOLON .)
 
 
 state 68
 
-    (16) type -> NVARCHAR LPAREN NUMBER RPAREN .
+    (14) column -> ID . type attributes
+    (15) type -> . INT
+    (16) type -> . DATE
+    (17) type -> . NVARCHAR LPAREN NUMBER RPAREN
+    (18) type -> . DECIMAL
 
-    PRIMARY         reduce using rule 16 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
-    REFERENCE       reduce using rule 16 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
-    NOT             reduce using rule 16 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
-    RPAREN          reduce using rule 16 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
-    COMMA           reduce using rule 16 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
-    SEMICOLON       reduce using rule 16 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+    INT             shift and go to state 76
+    DATE            shift and go to state 77
+    NVARCHAR        shift and go to state 78
+    DECIMAL         shift and go to state 79
 
+    type                           shift and go to state 75
 
 state 69
 
-    (24) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives . RPAREN SEMICOLON
-    (27) primitives -> primitives . COMMA primitive
+    (11) create_table -> CREATE TABLE ID LPAREN columns . RPAREN SEMICOLON
+    (12) columns -> columns . COMMA column
 
-    RPAREN          shift and go to state 75
-    COMMA           shift and go to state 76
+    RPAREN          shift and go to state 80
+    COMMA           shift and go to state 81
 
 
 state 70
 
-    (28) primitives -> primitive .
+    (13) columns -> column .
 
-    RPAREN          reduce using rule 28 (primitives -> primitive .)
-    COMMA           reduce using rule 28 (primitives -> primitive .)
+    RPAREN          reduce using rule 13 (columns -> column .)
+    COMMA           reduce using rule 13 (columns -> column .)
 
 
 state 71
 
-    (29) primitive -> NUMBER .
+    (27) ids -> ID .
 
-    RPAREN          reduce using rule 29 (primitive -> NUMBER .)
-    COMMA           reduce using rule 29 (primitive -> NUMBER .)
+    RPAREN          reduce using rule 27 (ids -> ID .)
+    COMMA           reduce using rule 27 (ids -> ID .)
 
 
 state 72
 
-    (30) primitive -> DECIMALES .
+    (25) insert_into -> INSERT INTO ID LPAREN ids . RPAREN VALUES LPAREN primitives RPAREN SEMICOLON
+    (26) ids -> ids . COMMA ID
 
-    RPAREN          reduce using rule 30 (primitive -> DECIMALES .)
-    COMMA           reduce using rule 30 (primitive -> DECIMALES .)
+    RPAREN          shift and go to state 82
+    COMMA           shift and go to state 83
 
 
 state 73
 
-    (31) primitive -> STRING .
+    (33) alter_table -> ALTER TABLE ID ADD COLUMN . ID type SEMICOLON
 
-    RPAREN          reduce using rule 31 (primitive -> STRING .)
-    COMMA           reduce using rule 31 (primitive -> STRING .)
+    ID              shift and go to state 84
 
 
 state 74
 
-    (22) attribute -> REFERENCE ID LPAREN ID . RPAREN
+    (34) alter_table -> ALTER TABLE ID DROP COLUMN . ID SEMICOLON
 
-    RPAREN          shift and go to state 77
+    ID              shift and go to state 85
 
 
 state 75
 
-    (24) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN . SEMICOLON
+    (14) column -> ID type . attributes
+    (19) attributes -> . attributes attribute
+    (20) attributes -> . attribute
+    (21) attributes -> . empty
+    (22) attribute -> . PRIMARY KEY
+    (23) attribute -> . REFERENCE ID LPAREN ID RPAREN
+    (24) attribute -> . NOT NULL
+    (70) empty -> .
 
-    SEMICOLON       shift and go to state 78
+  ! shift/reduce conflict for PRIMARY resolved as shift
+  ! shift/reduce conflict for REFERENCE resolved as shift
+  ! shift/reduce conflict for NOT resolved as shift
+    PRIMARY         shift and go to state 89
+    REFERENCE       shift and go to state 90
+    NOT             shift and go to state 91
+    RPAREN          reduce using rule 70 (empty -> .)
+    COMMA           reduce using rule 70 (empty -> .)
 
+  ! PRIMARY         [ reduce using rule 70 (empty -> .) ]
+  ! REFERENCE       [ reduce using rule 70 (empty -> .) ]
+  ! NOT             [ reduce using rule 70 (empty -> .) ]
+
+    attributes                     shift and go to state 86
+    attribute                      shift and go to state 87
+    empty                          shift and go to state 88
 
 state 76
 
-    (27) primitives -> primitives COMMA . primitive
-    (29) primitive -> . NUMBER
-    (30) primitive -> . DECIMALES
-    (31) primitive -> . STRING
+    (15) type -> INT .
 
-    NUMBER          shift and go to state 71
-    DECIMALES       shift and go to state 72
-    STRING          shift and go to state 73
+    PRIMARY         reduce using rule 15 (type -> INT .)
+    REFERENCE       reduce using rule 15 (type -> INT .)
+    NOT             reduce using rule 15 (type -> INT .)
+    RPAREN          reduce using rule 15 (type -> INT .)
+    COMMA           reduce using rule 15 (type -> INT .)
+    SEMICOLON       reduce using rule 15 (type -> INT .)
 
-    primitive                      shift and go to state 79
 
 state 77
 
-    (22) attribute -> REFERENCE ID LPAREN ID RPAREN .
+    (16) type -> DATE .
 
-    PRIMARY         reduce using rule 22 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
-    REFERENCE       reduce using rule 22 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
-    NOT             reduce using rule 22 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
-    RPAREN          reduce using rule 22 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
-    COMMA           reduce using rule 22 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
+    PRIMARY         reduce using rule 16 (type -> DATE .)
+    REFERENCE       reduce using rule 16 (type -> DATE .)
+    NOT             reduce using rule 16 (type -> DATE .)
+    RPAREN          reduce using rule 16 (type -> DATE .)
+    COMMA           reduce using rule 16 (type -> DATE .)
+    SEMICOLON       reduce using rule 16 (type -> DATE .)
 
 
 state 78
 
-    (24) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .
+    (17) type -> NVARCHAR . LPAREN NUMBER RPAREN
 
-    CREATE          reduce using rule 24 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
-    USE             reduce using rule 24 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
-    INSERT          reduce using rule 24 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
-    ALTER           reduce using rule 24 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
-    $end            reduce using rule 24 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    LPAREN          shift and go to state 92
 
 
 state 79
 
-    (27) primitives -> primitives COMMA primitive .
+    (18) type -> DECIMAL .
 
-    RPAREN          reduce using rule 27 (primitives -> primitives COMMA primitive .)
-    COMMA           reduce using rule 27 (primitives -> primitives COMMA primitive .)
+    PRIMARY         reduce using rule 18 (type -> DECIMAL .)
+    REFERENCE       reduce using rule 18 (type -> DECIMAL .)
+    NOT             reduce using rule 18 (type -> DECIMAL .)
+    RPAREN          reduce using rule 18 (type -> DECIMAL .)
+    COMMA           reduce using rule 18 (type -> DECIMAL .)
+    SEMICOLON       reduce using rule 18 (type -> DECIMAL .)
+
+
+state 80
+
+    (11) create_table -> CREATE TABLE ID LPAREN columns RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 93
+
+
+state 81
+
+    (12) columns -> columns COMMA . column
+    (14) column -> . ID type attributes
+
+    ID              shift and go to state 68
+
+    column                         shift and go to state 94
+
+state 82
+
+    (25) insert_into -> INSERT INTO ID LPAREN ids RPAREN . VALUES LPAREN primitives RPAREN SEMICOLON
+
+    VALUES          shift and go to state 95
+
+
+state 83
+
+    (26) ids -> ids COMMA . ID
+
+    ID              shift and go to state 96
+
+
+state 84
+
+    (33) alter_table -> ALTER TABLE ID ADD COLUMN ID . type SEMICOLON
+    (15) type -> . INT
+    (16) type -> . DATE
+    (17) type -> . NVARCHAR LPAREN NUMBER RPAREN
+    (18) type -> . DECIMAL
+
+    INT             shift and go to state 76
+    DATE            shift and go to state 77
+    NVARCHAR        shift and go to state 78
+    DECIMAL         shift and go to state 79
+
+    type                           shift and go to state 97
+
+state 85
+
+    (34) alter_table -> ALTER TABLE ID DROP COLUMN ID . SEMICOLON
+
+    SEMICOLON       shift and go to state 98
+
+
+state 86
+
+    (14) column -> ID type attributes .
+    (19) attributes -> attributes . attribute
+    (22) attribute -> . PRIMARY KEY
+    (23) attribute -> . REFERENCE ID LPAREN ID RPAREN
+    (24) attribute -> . NOT NULL
+
+    RPAREN          reduce using rule 14 (column -> ID type attributes .)
+    COMMA           reduce using rule 14 (column -> ID type attributes .)
+    PRIMARY         shift and go to state 89
+    REFERENCE       shift and go to state 90
+    NOT             shift and go to state 91
+
+    attribute                      shift and go to state 99
+
+state 87
+
+    (20) attributes -> attribute .
+
+    PRIMARY         reduce using rule 20 (attributes -> attribute .)
+    REFERENCE       reduce using rule 20 (attributes -> attribute .)
+    NOT             reduce using rule 20 (attributes -> attribute .)
+    RPAREN          reduce using rule 20 (attributes -> attribute .)
+    COMMA           reduce using rule 20 (attributes -> attribute .)
+
+
+state 88
+
+    (21) attributes -> empty .
+
+    PRIMARY         reduce using rule 21 (attributes -> empty .)
+    REFERENCE       reduce using rule 21 (attributes -> empty .)
+    NOT             reduce using rule 21 (attributes -> empty .)
+    RPAREN          reduce using rule 21 (attributes -> empty .)
+    COMMA           reduce using rule 21 (attributes -> empty .)
+
+
+state 89
+
+    (22) attribute -> PRIMARY . KEY
+
+    KEY             shift and go to state 100
+
+
+state 90
+
+    (23) attribute -> REFERENCE . ID LPAREN ID RPAREN
+
+    ID              shift and go to state 101
+
+
+state 91
+
+    (24) attribute -> NOT . NULL
+
+    NULL            shift and go to state 102
+
+
+state 92
+
+    (17) type -> NVARCHAR LPAREN . NUMBER RPAREN
+
+    NUMBER          shift and go to state 103
+
+
+state 93
+
+    (11) create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .
+
+    CREATE          reduce using rule 11 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    USE             reduce using rule 11 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    INSERT          reduce using rule 11 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    ALTER           reduce using rule 11 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    MINUS           reduce using rule 11 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    LPAREN          reduce using rule 11 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    NUMBER          reduce using rule 11 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    DECIMALES       reduce using rule 11 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    STRING          reduce using rule 11 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    ID              reduce using rule 11 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+    $end            reduce using rule 11 (create_table -> CREATE TABLE ID LPAREN columns RPAREN SEMICOLON .)
+
+
+state 94
+
+    (12) columns -> columns COMMA column .
+
+    RPAREN          reduce using rule 12 (columns -> columns COMMA column .)
+    COMMA           reduce using rule 12 (columns -> columns COMMA column .)
+
+
+state 95
+
+    (25) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES . LPAREN primitives RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 104
+
+
+state 96
+
+    (26) ids -> ids COMMA ID .
+
+    RPAREN          reduce using rule 26 (ids -> ids COMMA ID .)
+    COMMA           reduce using rule 26 (ids -> ids COMMA ID .)
+
+
+state 97
+
+    (33) alter_table -> ALTER TABLE ID ADD COLUMN ID type . SEMICOLON
+
+    SEMICOLON       shift and go to state 105
+
+
+state 98
+
+    (34) alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .
+
+    CREATE          reduce using rule 34 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    USE             reduce using rule 34 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    INSERT          reduce using rule 34 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    ALTER           reduce using rule 34 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    MINUS           reduce using rule 34 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    LPAREN          reduce using rule 34 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    NUMBER          reduce using rule 34 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    DECIMALES       reduce using rule 34 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    STRING          reduce using rule 34 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    ID              reduce using rule 34 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+    $end            reduce using rule 34 (alter_table -> ALTER TABLE ID DROP COLUMN ID SEMICOLON .)
+
+
+state 99
+
+    (19) attributes -> attributes attribute .
+
+    PRIMARY         reduce using rule 19 (attributes -> attributes attribute .)
+    REFERENCE       reduce using rule 19 (attributes -> attributes attribute .)
+    NOT             reduce using rule 19 (attributes -> attributes attribute .)
+    RPAREN          reduce using rule 19 (attributes -> attributes attribute .)
+    COMMA           reduce using rule 19 (attributes -> attributes attribute .)
+
+
+state 100
+
+    (22) attribute -> PRIMARY KEY .
+
+    PRIMARY         reduce using rule 22 (attribute -> PRIMARY KEY .)
+    REFERENCE       reduce using rule 22 (attribute -> PRIMARY KEY .)
+    NOT             reduce using rule 22 (attribute -> PRIMARY KEY .)
+    RPAREN          reduce using rule 22 (attribute -> PRIMARY KEY .)
+    COMMA           reduce using rule 22 (attribute -> PRIMARY KEY .)
+
+
+state 101
+
+    (23) attribute -> REFERENCE ID . LPAREN ID RPAREN
+
+    LPAREN          shift and go to state 106
+
+
+state 102
+
+    (24) attribute -> NOT NULL .
+
+    PRIMARY         reduce using rule 24 (attribute -> NOT NULL .)
+    REFERENCE       reduce using rule 24 (attribute -> NOT NULL .)
+    NOT             reduce using rule 24 (attribute -> NOT NULL .)
+    RPAREN          reduce using rule 24 (attribute -> NOT NULL .)
+    COMMA           reduce using rule 24 (attribute -> NOT NULL .)
+
+
+state 103
+
+    (17) type -> NVARCHAR LPAREN NUMBER . RPAREN
+
+    RPAREN          shift and go to state 107
+
+
+state 104
+
+    (25) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN . primitives RPAREN SEMICOLON
+    (28) primitives -> . primitives COMMA primitive
+    (29) primitives -> . primitive
+    (30) primitive -> . NUMBER
+    (31) primitive -> . DECIMALES
+    (32) primitive -> . STRING
+
+    NUMBER          shift and go to state 110
+    DECIMALES       shift and go to state 111
+    STRING          shift and go to state 112
+
+    primitives                     shift and go to state 108
+    primitive                      shift and go to state 109
+
+state 105
+
+    (33) alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .
+
+    CREATE          reduce using rule 33 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    USE             reduce using rule 33 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    INSERT          reduce using rule 33 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    ALTER           reduce using rule 33 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    MINUS           reduce using rule 33 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    LPAREN          reduce using rule 33 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    NUMBER          reduce using rule 33 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    DECIMALES       reduce using rule 33 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    STRING          reduce using rule 33 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    ID              reduce using rule 33 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+    $end            reduce using rule 33 (alter_table -> ALTER TABLE ID ADD COLUMN ID type SEMICOLON .)
+
+
+state 106
+
+    (23) attribute -> REFERENCE ID LPAREN . ID RPAREN
+
+    ID              shift and go to state 113
+
+
+state 107
+
+    (17) type -> NVARCHAR LPAREN NUMBER RPAREN .
+
+    PRIMARY         reduce using rule 17 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+    REFERENCE       reduce using rule 17 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+    NOT             reduce using rule 17 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+    RPAREN          reduce using rule 17 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+    COMMA           reduce using rule 17 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+    SEMICOLON       reduce using rule 17 (type -> NVARCHAR LPAREN NUMBER RPAREN .)
+
+
+state 108
+
+    (25) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives . RPAREN SEMICOLON
+    (28) primitives -> primitives . COMMA primitive
+
+    RPAREN          shift and go to state 114
+    COMMA           shift and go to state 115
+
+
+state 109
+
+    (29) primitives -> primitive .
+
+    RPAREN          reduce using rule 29 (primitives -> primitive .)
+    COMMA           reduce using rule 29 (primitives -> primitive .)
+
+
+state 110
+
+    (30) primitive -> NUMBER .
+
+    RPAREN          reduce using rule 30 (primitive -> NUMBER .)
+    COMMA           reduce using rule 30 (primitive -> NUMBER .)
+
+
+state 111
+
+    (31) primitive -> DECIMALES .
+
+    RPAREN          reduce using rule 31 (primitive -> DECIMALES .)
+    COMMA           reduce using rule 31 (primitive -> DECIMALES .)
+
+
+state 112
+
+    (32) primitive -> STRING .
+
+    RPAREN          reduce using rule 32 (primitive -> STRING .)
+    COMMA           reduce using rule 32 (primitive -> STRING .)
+
+
+state 113
+
+    (23) attribute -> REFERENCE ID LPAREN ID . RPAREN
+
+    RPAREN          shift and go to state 116
+
+
+state 114
+
+    (25) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 117
+
+
+state 115
+
+    (28) primitives -> primitives COMMA . primitive
+    (30) primitive -> . NUMBER
+    (31) primitive -> . DECIMALES
+    (32) primitive -> . STRING
+
+    NUMBER          shift and go to state 110
+    DECIMALES       shift and go to state 111
+    STRING          shift and go to state 112
+
+    primitive                      shift and go to state 118
+
+state 116
+
+    (23) attribute -> REFERENCE ID LPAREN ID RPAREN .
+
+    PRIMARY         reduce using rule 23 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
+    REFERENCE       reduce using rule 23 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
+    NOT             reduce using rule 23 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
+    RPAREN          reduce using rule 23 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
+    COMMA           reduce using rule 23 (attribute -> REFERENCE ID LPAREN ID RPAREN .)
+
+
+state 117
+
+    (25) insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .
+
+    CREATE          reduce using rule 25 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    USE             reduce using rule 25 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    INSERT          reduce using rule 25 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    ALTER           reduce using rule 25 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    MINUS           reduce using rule 25 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    LPAREN          reduce using rule 25 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    NUMBER          reduce using rule 25 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    DECIMALES       reduce using rule 25 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    STRING          reduce using rule 25 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    ID              reduce using rule 25 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+    $end            reduce using rule 25 (insert_into -> INSERT INTO ID LPAREN ids RPAREN VALUES LPAREN primitives RPAREN SEMICOLON .)
+
+
+state 118
+
+    (28) primitives -> primitives COMMA primitive .
+
+    RPAREN          reduce using rule 28 (primitives -> primitives COMMA primitive .)
+    COMMA           reduce using rule 28 (primitives -> primitives COMMA primitive .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for PRIMARY in state 36 resolved as shift
-WARNING: shift/reduce conflict for REFERENCE in state 36 resolved as shift
-WARNING: shift/reduce conflict for NOT in state 36 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 54 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 54 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 54 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 54 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 54 resolved as shift
+WARNING: shift/reduce conflict for DIFFERENT in state 54 resolved as shift
+WARNING: shift/reduce conflict for GREATER in state 54 resolved as shift
+WARNING: shift/reduce conflict for LESS in state 54 resolved as shift
+WARNING: shift/reduce conflict for GREATER_EQUAL in state 54 resolved as shift
+WARNING: shift/reduce conflict for LESS_EQUAL in state 54 resolved as shift
+WARNING: shift/reduce conflict for AND in state 54 resolved as shift
+WARNING: shift/reduce conflict for OR in state 54 resolved as shift
+WARNING: shift/reduce conflict for NOT_SYMBOL in state 54 resolved as shift
+WARNING: shift/reduce conflict for PRIMARY in state 75 resolved as shift
+WARNING: shift/reduce conflict for REFERENCE in state 75 resolved as shift
+WARNING: shift/reduce conflict for NOT in state 75 resolved as shift

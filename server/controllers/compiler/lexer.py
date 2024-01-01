@@ -65,7 +65,7 @@ reserved = {
     'contar': 'CONTAR',
     'suma': 'SUMA',
     'cast': 'CAST',
-
+    'and': 'AND_WORD',
 }
 # Tokens
 t_PLUS = r'\+'
