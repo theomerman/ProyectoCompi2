@@ -2,15 +2,27 @@
 import controllers.compiler.parser as parser
 
 
+
 parser.parser.parse(
 '''
 CREATE DATA BASE tbbanco;  
 USE tbbanco;
 
-true = false && false = true;
+
+SELECT *, tbcredito.credito,tbcredito.fechaultimocorte,tbcredito.nocuenta,fechaultimocorte,tbproducto.producto,
+tbcreditoSaldo.idmoneda,tbcreditoSaldo.SaldoActual,tbcreditoSaldo.SaldoMora,
+tbcreditoSaldo.ValorCuota,tbcreditoSaldo.DiasMora,
+tbcreditoSaldo.alturamora,tbcreditoSaldo.limite,
+tbcreditoSaldo.idcalificacion,suma(tbcreditoSaldo.SaldoActual)
+FROM tbcredito,tbcreditoobligacion,tbcreditoSaldo,tbcliente,tbproducto 
+where tbcredito.credito = tbcreditoobligacion.credito 
+&& tbcreditoobligacion.Credito = tbcreditoSaldo.credito 
+&& tbcliente.codigocliente = tbcreditoobligacion.codigocliente
+&& tbproducto.idproducto = tbcredito.idproducto;
+
+
 '''
 
-# 3*5+8*4+9
 
 
 # '''

@@ -6,6 +6,7 @@ from controllers.compiler.lexer import tokens
 from controllers.functions import create_database,use_database, create_table, insert, alter_table
 from controllers.objects.column import Column
 from controllers.objects.Node import Node, traverse
+from controllers.functions import select
 # from controllers.compiler.grammar.concatena import p_concat, p_concatena, p_concatena_param
 
 precedence = (
@@ -29,18 +30,8 @@ def p_statement(p):
                 | create_table
                 | insert_into
                 | alter_table
-                | expression SEMICOLON
+                | select_total
                 '''
-    p[0] = p[1]
-    try:
-        traverse(p[1])
-    except:
-        pass
-# def tmp(p):
-#     '''
-#         statement : expression
-#     '''
-#     traverse(p[1])
 
 # create_database
 def p_create_database(p):
@@ -221,52 +212,64 @@ def p_alter_table(p):
 
 
 
-## SELECT
-
-# def p_select(p):
-#     '''
-#     select_total : SELECT select_columns from_statement SEMICOLON
-#     '''
-
-# def p_select_columns(p):
-#     '''
-#     select_columns  : select_columns COMMA select_column
-#                     | select_column
-#     '''
-
-# def p_select_column(p):
-#     '''
-#     select_column   : concatena
-#                     | substraer
-#                     | hoy
-#                     | contar
-#                     | suma
-#     '''
-
-# def p_from_statement(p):
-#     '''
-#     from_statement  : FROM ids where_statement
-#                     | empty
-#     '''
-
-# def p_where_statement(p):
-#     '''
-#     where_statement : WHERE where_conditions
-#                     | empty
-#     '''
-# def p_where_conditions(p):
-#     '''
-#     where_conditions    : where_conditions AND where_condition
-#                         | where_condition
-#     '''
-
-# def p_where_condition(p):
-#     '''
-#     where_condition : ID OPERATOR select_primitives
-#                     | ID OPERATOR ID
-#     '''
+############################# SELECT ################################
+            
+def p_select_total(p):
+    '''
+    select_total : SELECT select_columns from_statement SEMICOLON
+    '''
+    # print(p[2],p[3]) 
+    select.select(p[2], p[3])
+    
 
 
+def p_select_columns(p):
+    '''
+    select_columns  : select_columns COMMA select_column
+                    | select_column
+    '''
+    if len(p) == 4:
+        p[0] = p[1] + [p[3]]
+    elif len(p) == 2:
+        p[0] = [p[1]]
+
+def p_select_column(p):
+    '''
+    select_column   : concatena
+                    | substraer
+                    | hoy
+                    | contar
+                    | suma
+                    | parameters_two
+                    | TIMES
+    '''
+    p[0] = p[1]
+
+def p_from_statement(p):
+    '''
+    from_statement  : FROM ids where_statement
+                    | empty
+    '''
+    if len(p) == 4:
+        if p[3] != None:
+            p[0] = [p[2], p[3]]
+        else:
+            p[0] = [p[2]]
+        # p[0] = p[2]
+    else:
+        p[0] = None
+
+def p_where_statement(p):
+    '''
+    where_statement : WHERE expression
+                    | empty
+    '''
+    if len(p) == 3:
+        p[0] = p[2]
+    else:
+        p[0] = None
+
+############################# EXPRESSION ################################
 def p_expression(p):
     '''
     expression : expression PLUS expression
@@ -282,6 +285,7 @@ def p_expression(p):
                 | expression LESS_EQUAL expression
 
                 | expression AND expression
+                | expression AND_WORD expression
                 | expression OR expression
                 | expression NOT_SYMBOL expression
     '''
@@ -321,10 +325,7 @@ def p_expresion_primitives2(p):
 
 
 
-
-
-
-## NATIVE_FUNCTIONS ##
+########################### native_functions ###############################
     
 # CONCATENA
             
@@ -332,12 +333,17 @@ def p_concatena(p):
     '''
     concatena : CONCATENA LPAREN concatena_parameters RPAREN
     '''
+    p[0] = [p[1], p[3]]
         
 def p_concatena_param(p):
     '''
     concatena_parameters    : concatena_parameters COMMA parameters_one
                             | parameters_one
     '''
+    if len(p) == 4:
+        p[0] = p[1] + [p[3]]
+    elif len(p) == 2:
+        p[0] = [p[1]]
     
 def p_parameters_one(p):
     '''
@@ -345,41 +351,56 @@ def p_parameters_one(p):
                     | ID PERIOD ID
                     | ID
     '''
+    if len(p) == 4:
+        p[0] = p[1] + "." + p[3]
+    else:
+        p[0] = p[1]
 
 # SUBSTRAER
 def p_substraer(p):
     '''
     substraer : SUBSTRAER LPAREN parameters_one COMMA NUMBER COMMA NUMBER RPAREN
     '''
+    p[0] = [p[1], [p[3], p[5], p[7]]]
+
 # HOY
 def p_hoy(p):
     '''
     hoy : HOY LPAREN RPAREN
     '''
+    p[0] = [p[1], None]
 
 # CONTAR
 def p_contar(p):
     '''
     contar : CONTAR LPAREN contar_parameters RPAREN
     '''
+    p[0] = [p[1], p[3]]
+
 def p_contar_param(p):
     '''
     contar_parameters   : TIMES
                         | ID PERIOD ID
                         | ID 
     '''
+    p[0] = p[1]
+
 # SUMA
 def p_suma(p):
     '''
     suma : SUMA LPAREN parameters_two RPAREN
 
     '''
+    p[0] = [p[1], p[3]]
 def p_parameters_two(p):
     '''
     parameters_two  : ID PERIOD ID
                     | ID
     '''
-
+    if len(p) == 4:
+        p[0] = p[1] + "." + p[3]
+    else:
+        p[0] = p[1]
 
 
 

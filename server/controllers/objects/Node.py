@@ -4,7 +4,7 @@ class Node:
         self.left = None
         self.right = None
 
-def traverse(node):
+def traverse(node : Node):
     if node is not None:
         traverse(node.left)
         traverse(node.right)
