@@ -5,24 +5,22 @@ import controllers.compiler.parser as parser
 
 parser.parser.parse(
 '''
+
+
+use tbbanco;
 CREATE DATA BASE tbbanco;  
-USE tbbanco;
-
-
-SELECT suma(tbcreditoSaldo.SaldoActual)
-FROM tbcredito,tbcreditoobligacion,tbcreditoSaldo,tbcliente,tbproducto 
-where tbcredito.credito = tbcreditoobligacion.credito 
-&& tbcreditoobligacion.Credito = tbcreditoSaldo.credito 
-&& tbcliente.codigocliente = tbcreditoobligacion.codigocliente
-&& tbproducto.idproducto = tbcredito.idproducto
-;
 
 '''
-# where 4 = 3 && false
+# SELECT HOY();
 
-# 0-5*3
-# 0-8
-# -15
+
+# SELECT HOY(),SUBSTRAER(primer_nombre,1,5),SUBSTRAER(identificacion,0,3)
+# from tbcliente,tbcreditoobligacion,tbidentificacion
+# where tbcliente.idcliente = tbcreditoobligacion.idcliente
+# && tbcliente.codigocliente = tbidentificacion.codigocliente
+
+
+
 
 # '''
 

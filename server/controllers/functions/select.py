@@ -4,31 +4,37 @@ from controllers.validations.get_table import get_table
 import xml.etree.ElementTree as ET
 def select(_parameters, from_statement:[[],Node]) -> tuple[str, str]:
     database, err = get_database()
+    unified_tables = []
     sorted_rows = []
 
     if err is not None:
         return None, err
-
-    unified_tables,table_names, err = get_tables(database, from_statement)
-    if err is not None:
-        return None, err
     
+    
+    if from_statement is not None:
+        
+        unified_tables,table_names, err = get_tables(database, from_statement)
+        if err is not None:
+            return None, err
+
+        if len(from_statement) == 2:
+            for row in unified_tables:
+                try:
+                    tmp_tree = copy_tree(from_statement[1])
+                    set_values(tmp_tree, row, table_names)
+                    tmp = traverse(tmp_tree)
+                    # print(tmp)
+                    if tmp :
+                        sorted_rows.append(row)
+                except Exception as e:
+                    return None, str(e)
+        else:
+            for row in unified_tables:
+                sorted_rows.append(row)
 
 
-    if len(from_statement) == 2:
-        for row in unified_tables:
-            try:
-                tmp_tree = copy_tree(from_statement[1])
-                set_values(tmp_tree, row, table_names)
-                tmp = traverse(tmp_tree)
-                # print(tmp)
-                if tmp :
-                    sorted_rows.append(row)
-            except Exception as e:
-               return None, str(e)
-    else:
-        for row in unified_tables:
-            sorted_rows.append(row)
+
+
 
     print(len(sorted_rows))
     print(len(unified_tables))

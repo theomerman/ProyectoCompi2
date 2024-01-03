@@ -7,12 +7,12 @@ def multiply(a, b):
             raise Exception("Error: No se puede multiplicar un numero con un string o fecha")
     if type(a) is str:
         try:
-            datetime.datetime.strptime(a.replace("'",""), '%Y-%m-%d')
+            datetime.datetime.strptime(a.replace("'",""), '%d-%m-%Y')
             if type(b) is int or type(b) is float:
                 raise Exception("Error: No se puede multiplicar una fecha con un numero")
             if type(b) is str:
                 try:
-                    datetime.datetime.strptime(b.replace("'",""), '%Y-%m-%d')
+                    datetime.datetime.strptime(b.replace("'",""), '%d-%m-%Y')
                     print('entro')
                     return None, "Error: No se puede multiplicar fecha con fecha"
                 except:
@@ -23,7 +23,7 @@ def multiply(a, b):
                 raise Exception("Error: No se puede multiplicar un string con un numero")
             if type(b) is str:
                 try:
-                    datetime.datetime.strptime(b.replace("'",""), '%Y-%m-%d')
+                    datetime.datetime.strptime(b.replace("'",""), '%d-%m-%Y')
                     return "'" + a.replace("'","") + b.replace("'","") + "'", None
                 except:
                     raise Exception("Error: No se puede multiplicar un string con un string")

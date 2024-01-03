@@ -80,13 +80,22 @@ def copy_tree(node:Node):
 #         print(node.value)
 #         return node
 def set_values(node:Node, values:list, column_names:list):
+    column_names_two = []
+    for column in column_names:
+        column_names_two.append(column.split(".")[1])
     if node is not None:
         set_values(node.left, values, column_names)
         set_values(node.right, values, column_names)
         if node.value in column_names:
             node.value = values[column_names.index(node.value)]
+        elif node.value in column_names_two:
+            node.value = values[column_names_two.index(node.value)]
         elif node.value in operators:
             pass
+        elif type(node.value) is int or type(node.value) is float:
+            node.value = str(node.value)
+        elif "'" in node.value:
+            node.value = node.value.replace("'","")
         else:
             raise Exception(f"Error: Column { node.value } not found")
         # print(node.value)

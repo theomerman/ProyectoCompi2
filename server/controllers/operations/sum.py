@@ -8,13 +8,13 @@ def sum(a, b):
             return a + b, None
         if type(b) == str:
             try:
-                datetime.datetime.strptime(b.replace("'",""), '%Y-%m-%d')
+                datetime.datetime.strptime(b.replace("'",""), '%d-%m-%Y')
                 return None, "Error: No se puede sumar un entero con una fecha"
             except:
                 return "'" + str(a) + b.replace("'","") + "'", None
     if type(a) == str:
         try:
-            datetime.datetime.strptime(a.replace("'",""), '%Y-%m-%d')
+            datetime.datetime.strptime(a.replace("'",""), '%d-%m-%Y')
             return None, "Error: No se puede sumar una fecha con un ningun tipo de dato"
         except:
             return "'" + a.replace("'","") + str(b) + "'", None

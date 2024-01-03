@@ -78,17 +78,23 @@ def validate_types(table: ET.Element ,dictionary):
         except:
 
             if table.find(key).attrib["type"] == "int":
+                if dictionary[key] == "null":
+                    continue
                 if type(dictionary[key]) is not int:
                     return None, f"Error: Value {dictionary[key]} is not an integer"
                 
             elif table.find(key).attrib["type"] == "decimal":
+                # if dictionary[key] == "null":
+                #     continue
                 if type(dictionary[key]) is not float and type(dictionary[key]) is not int:
                     return None, f"Error: Value {dictionary[key]} is not a decimal"
 
             elif table.find(key).attrib["type"] == "date":
+                # if dictionary[key] == "null":
+                #     continue
                 try:
-                    datetime.datetime.strptime(dictionary[key].replace("'",""), '%Y-%m-%d')
+                    datetime.datetime.strptime(dictionary[key].replace("'",""), '%d-%m-%Y')
                 except:
-                    return None, f"Error: Value {dictionary[key]} is not a date in format YYYY-MM-DD"
+                    return None, f"Error: Value {dictionary[key]} is not a date in format dd-mm-yyyy"
     return True, None
         # print(table.find(key),table.find(key).attrib["type"],dictionary[key])
