@@ -9,21 +9,20 @@ CREATE DATA BASE tbbanco;
 USE tbbanco;
 
 
-SELECT *, tbcredito.credito,tbcredito.fechaultimocorte,tbcredito.nocuenta,fechaultimocorte,tbproducto.producto,
-tbcreditoSaldo.idmoneda,tbcreditoSaldo.SaldoActual,tbcreditoSaldo.SaldoMora,
-tbcreditoSaldo.ValorCuota,tbcreditoSaldo.DiasMora,
-tbcreditoSaldo.alturamora,tbcreditoSaldo.limite,
-tbcreditoSaldo.idcalificacion,suma(tbcreditoSaldo.SaldoActual)
+SELECT suma(tbcreditoSaldo.SaldoActual)
 FROM tbcredito,tbcreditoobligacion,tbcreditoSaldo,tbcliente,tbproducto 
 where tbcredito.credito = tbcreditoobligacion.credito 
 && tbcreditoobligacion.Credito = tbcreditoSaldo.credito 
 && tbcliente.codigocliente = tbcreditoobligacion.codigocliente
-&& tbproducto.idproducto = tbcredito.idproducto;
-
+&& tbproducto.idproducto = tbcredito.idproducto
+;
 
 '''
+# where 4 = 3 && false
 
-
+# 0-5*3
+# 0-8
+# -15
 
 # '''
 

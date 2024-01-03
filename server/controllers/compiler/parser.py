@@ -10,12 +10,12 @@ from controllers.functions import select
 # from controllers.compiler.grammar.concatena import p_concat, p_concatena, p_concatena_param
 
 precedence = (
-    ('right', 'PLUS', 'MINUS'),
-    ('right', 'TIMES', 'DIVIDE'),
-    ('right','EQUAL', 'DIFFERENT', 'GREATER', 'LESS', 'GREATER_EQUAL', 'LESS_EQUAL'),
-    ('right', 'OR'),
-    ('right', 'AND', 'AND_WORD'),
-    ('left', 'UMINUS'),
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'TIMES', 'DIVIDE'),
+    ('left', 'AND', 'AND_WORD'),
+    ('left', 'OR'),
+    ('left','EQUAL', 'DIFFERENT', 'GREATER', 'LESS', 'GREATER_EQUAL', 'LESS_EQUAL'),
+    ('right', 'UMINUS'),
 )
 # INIT
 def p_init(p):
@@ -219,7 +219,9 @@ def p_select_total(p):
     select_total : SELECT select_columns from_statement SEMICOLON
     '''
     # print(p[2],p[3]) 
-    select.select(p[2], p[3])
+    success, err = select.select(p[2], p[3])
+    if err:
+        print(err)
     
 
 
